@@ -33,6 +33,7 @@
 		---include
 		---libs
 		 
+		 
 
 
 	   我已经生成了好一份caffe.pb.h和caffe.pb.cc，对应的protobuf直接使用3rdpaty的protobuf(3.0.0)库
@@ -57,4 +58,5 @@
         generatepb.bat
         mkdir build
 		
+	  注意：需要将cublas64_10.dll cudart64_101.dll cudnn64_7.dll cufft64_10.dll curand64_10.dll和3rdparty/bins中的dll文件复制到windows/x64/release下面
 

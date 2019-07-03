@@ -17,10 +17,9 @@
 
 #include <climits>
 #include <cmath>
-<<<<<<< HEAD
-=======
+
 #include<algorithm>
->>>>>>> first
+
 #include <fstream>  // NOLINT(readability/streams)
 #include <iostream>  // NOLINT(readability/streams)
 #include <map>

@@ -620,7 +620,7 @@
       <AdditionalDependencies>opencv_world310.lib;libopenblas.lib;libprotobuf.lib;gflags.lib;glog.lib;cublas.lib;cudart.lib;cudadevrt.lib;cudnn.lib;curand.lib;cudart_static.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <CudaCompile>
-      <CodeGeneration>compute_50,sm_50;compute_52,sm_52;compute_60,sm_60;compute_61,sm_61;%(CodeGeneration)</CodeGeneration>
+      <CodeGeneration>compute_50,sm_50;compute_52,sm_52;compute_60,sm_60;compute_61,sm_61</CodeGeneration>
     </CudaCompile>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
