@@ -45,11 +45,7 @@ function(caffe_detect_installed_gpus out_variable)
       #find vcvarsall.bat and run it building msvc environment
       get_filename_component(MY_COMPILER_DIR ${CMAKE_CXX_COMPILER} DIRECTORY)
       find_file(MY_VCVARSALL_BAT vcvarsall.bat "${MY_COMPILER_DIR}/.." "${MY_COMPILER_DIR}/../..")
-<<<<<<< HEAD
-      execute_process(COMMAND ${MY_VCVARSALL_BAT} && ${CUDA_NVCC_EXECUTABLE} -arch sm_61 --run  ${__cufile}
-=======
       execute_process(COMMAND ${MY_VCVARSALL_BAT} && ${CUDA_NVCC_EXECUTABLE} -arch sm_30 --run  ${__cufile}
->>>>>>> first
                       WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/CMakeFiles/"
                       RESULT_VARIABLE __nvcc_res OUTPUT_VARIABLE __nvcc_out
                       ERROR_QUIET
@@ -66,8 +62,9 @@ function(caffe_detect_installed_gpus out_variable)
       # nvcc outputs text containing line breaks when building with MSVC.
       # The line below prevents CMake from inserting a variable with line
       # breaks in the cache
-      string(REGEX MATCH "([1-9].[0-9])" __nvcc_out "${__nvcc_out}")
-      string(REPLACE "2.1" "2.1(2.0)" __nvcc_out "${__nvcc_out}")
+      #string(REGEX MATCH "([1-9].[0-9])" __nvcc_out "${__nvcc_out}")
+      #string(REPLACE "2.1" "2.1(2.0)" __nvcc_out "${__nvcc_out}")
+	  set(__nvcc_out "6.1")
       set(CUDA_gpu_detect_output ${__nvcc_out} CACHE INTERNAL "Returned GPU architetures from mshadow_detect_gpus tool" FORCE)
     else()
       message(WARNING "Running GPU detection script with nvcc failed: ${__nvcc_out}")
@@ -89,8 +86,7 @@ endfunction()
 #   caffe_select_nvcc_arch_flags(out_variable)
 function(caffe_select_nvcc_arch_flags out_variable)
   # List of arch names
-  set(__archs_names "Fermi" "Kepler" "Maxwell" "Pascal" "All" "Manual" "Turning")
-  set(__archs_name_default "Pascal")
+  set(__archs_names "Fermi" "Kepler" "Maxwell" "Pascal" "All" "Manual")
   set(__archs_name_default "All")
   if(NOT CMAKE_CROSSCOMPILING)
     list(APPEND __archs_names "Auto")
@@ -125,8 +121,6 @@ function(caffe_select_nvcc_arch_flags out_variable)
     set(__cuda_arch_bin "50")
   elseif(${CUDA_ARCH_NAME} STREQUAL "Pascal")
     set(__cuda_arch_bin "60 61")
-  elseif(${CUDA_ARCH_NAME} STREQUAL "Turning")
-    set(__cuda_arch_bin "70 75")
   elseif(${CUDA_ARCH_NAME} STREQUAL "All")
     set(__cuda_arch_bin ${Caffe_known_gpu_archs})
   elseif(${CUDA_ARCH_NAME} STREQUAL "Auto")
