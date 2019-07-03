@@ -1,0 +1,630 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\absval_layer.cpp" />
+    <ClCompile Include="..\..\src\accuracy_layer.cpp" />
+    <ClCompile Include="..\..\src\arccos_layer.cpp" />
+    <ClCompile Include="..\..\src\argmax_layer.cpp" />
+    <ClCompile Include="..\..\src\axpy_layer.cpp" />
+    <ClCompile Include="..\..\src\base_conv_layer.cpp" />
+    <ClCompile Include="..\..\src\base_data_layer.cpp" />
+    <ClCompile Include="..\..\src\batch_norm_layer.cpp" />
+    <ClCompile Include="..\..\src\batch_reindex_layer.cpp" />
+    <ClCompile Include="..\..\src\bias_layer.cpp" />
+    <ClCompile Include="..\..\src\blob.cpp" />
+    <ClCompile Include="..\..\src\bnll_layer.cpp" />
+    <ClCompile Include="..\..\src\bn_layer.cpp" />
+    <ClCompile Include="..\..\src\caffe.pb.cc" />
+    <ClCompile Include="..\..\src\channel_scale_layer.cpp" />
+    <ClCompile Include="..\..\src\common.cpp" />
+    <ClCompile Include="..\..\src\concat_layer.cpp" />
+    <ClCompile Include="..\..\src\conv_layer.cpp" />
+    <ClCompile Include="..\..\src\cosine_layer.cpp" />
+    <ClCompile Include="..\..\src\crop_layer.cpp" />
+    <ClCompile Include="..\..\src\cudnn\cudnn.cpp" />
+    <ClCompile Include="..\..\src\cudnn\cudnn_bn_layer.cpp" />
+    <ClCompile Include="..\..\src\cudnn\cudnn_conv_layer.cpp" />
+    <ClCompile Include="..\..\src\cudnn\cudnn_lcn_layer.cpp" />
+    <ClCompile Include="..\..\src\cudnn\cudnn_lrn_layer.cpp" />
+    <ClCompile Include="..\..\src\cudnn\cudnn_pooling_layer.cpp" />
+    <ClCompile Include="..\..\src\cudnn\cudnn_relu_layer.cpp" />
+    <ClCompile Include="..\..\src\cudnn\cudnn_sigmoid_layer.cpp" />
+    <ClCompile Include="..\..\src\cudnn\cudnn_softmax_layer.cpp" />
+    <ClCompile Include="..\..\src\cudnn\cudnn_tanh_layer.cpp" />
+    <ClCompile Include="..\..\src\data_transformer.cpp" />
+    <ClCompile Include="..\..\src\deconv_layer.cpp" />
+    <ClCompile Include="..\..\src\dropout_layer.cpp" />
+    <ClCompile Include="..\..\src\dummy_data_layer.cpp" />
+    <ClCompile Include="..\..\src\eltwise_layer.cpp" />
+    <ClCompile Include="..\..\src\elu_layer.cpp" />
+    <ClCompile Include="..\..\src\embed_layer.cpp" />
+    <ClCompile Include="..\..\src\exp_layer.cpp" />
+    <ClCompile Include="..\..\src\fcn_accuracy_layer.cpp" />
+    <ClCompile Include="..\..\src\filter_layer.cpp" />
+    <ClCompile Include="..\..\src\flatten_layer.cpp" />
+    <ClCompile Include="..\..\src\flip_layer.cpp" />
+    <ClCompile Include="..\..\src\global_lse_margin_layer.cpp" />
+    <ClCompile Include="..\..\src\gram_layer.cpp" />
+    <ClCompile Include="..\..\src\hotspot_layer.cpp" />
+    <ClCompile Include="..\..\src\im2col.cpp" />
+    <ClCompile Include="..\..\src\im2col_layer.cpp" />
+    <ClCompile Include="..\..\src\inner_distance_layer.cpp" />
+    <ClCompile Include="..\..\src\inner_product_layer.cpp" />
+    <ClCompile Include="..\..\src\input_layer.cpp" />
+    <ClCompile Include="..\..\src\insanity_layer.cpp" />
+    <ClCompile Include="..\..\src\insert_splits.cpp" />
+    <ClCompile Include="..\..\src\io.cpp" />
+    <ClCompile Include="..\..\src\label_specific_add.cpp" />
+    <ClCompile Include="..\..\src\largemargin_inner_product_layer.cpp" />
+    <ClCompile Include="..\..\src\layer.cpp" />
+    <ClCompile Include="..\..\src\layer_factory.cpp" />
+    <ClCompile Include="..\..\src\local_layer.cpp" />
+    <ClCompile Include="..\..\src\log_layer.cpp" />
+    <ClCompile Include="..\..\src\lrn_layer.cpp" />
+    <ClCompile Include="..\..\src\lstm_layer.cpp" />
+    <ClCompile Include="..\..\src\lstm_unit_layer.cpp" />
+    <ClCompile Include="..\..\src\margin_inner_product_layer.cpp" />
+    <ClCompile Include="..\..\src\math_functions.cpp" />
+    <ClCompile Include="..\..\src\memory_data_layer.cpp" />
+    <ClCompile Include="..\..\src\moving_normalize_layer.cpp" />
+    <ClCompile Include="..\..\src\mvn_layer.cpp" />
+    <ClCompile Include="..\..\src\net.cpp" />
+    <ClCompile Include="..\..\src\neuron_layer.cpp" />
+    <ClCompile Include="..\..\src\nms.cpp" />
+    <ClCompile Include="..\..\src\noise_layer.cpp" />
+    <ClCompile Include="..\..\src\normalize_layer.cpp" />
+    <ClCompile Include="..\..\src\pairwise_layer.cpp" />
+    <ClCompile Include="..\..\src\parameter_layer.cpp" />
+    <ClCompile Include="..\..\src\permute_layer.cpp" />
+    <ClCompile Include="..\..\src\pooling_layer.cpp" />
+    <ClCompile Include="..\..\src\power_layer.cpp" />
+    <ClCompile Include="..\..\src\predict_box_layer.cpp" />
+    <ClCompile Include="..\..\src\prelu_layer.cpp" />
+    <ClCompile Include="..\..\src\proposal_layer.cpp" />
+    <ClCompile Include="..\..\src\psroi_pooling_layer.cpp" />
+    <ClCompile Include="..\..\src\recurrent_layer.cpp" />
+    <ClCompile Include="..\..\src\reduction_layer.cpp" />
+    <ClCompile Include="..\..\src\relu_layer.cpp" />
+    <ClCompile Include="..\..\src\reshape_layer.cpp" />
+    <ClCompile Include="..\..\src\resize_layer.cpp" />
+    <ClCompile Include="..\..\src\rnn_layer.cpp" />
+    <ClCompile Include="..\..\src\roi_pooling_layer.cpp" />
+    <ClCompile Include="..\..\src\scale_layer.cpp" />
+    <ClCompile Include="..\..\src\sigmoid_layer.cpp" />
+    <ClCompile Include="..\..\src\silence_layer.cpp" />
+    <ClCompile Include="..\..\src\slice_layer.cpp" />
+    <ClCompile Include="..\..\src\slope_layer.cpp" />
+    <ClCompile Include="..\..\src\softmax_layer.cpp" />
+    <ClCompile Include="..\..\src\soft_truncation_layer.cpp" />
+    <ClCompile Include="..\..\src\split_layer.cpp" />
+    <ClCompile Include="..\..\src\spp_layer.cpp" />
+    <ClCompile Include="..\..\src\subregion_layer.cpp" />
+    <ClCompile Include="..\..\src\syncedmem.cpp" />
+    <ClCompile Include="..\..\src\tanh_layer.cpp" />
+    <ClCompile Include="..\..\src\threshold_layer.cpp" />
+    <ClCompile Include="..\..\src\tile_layer.cpp" />
+    <ClCompile Include="..\..\src\transformer_layer.cpp" />
+    <ClCompile Include="..\..\src\truncation_layer.cpp" />
+    <ClCompile Include="..\..\src\upgrade_proto.cpp" />
+    <ClCompile Include="..\..\src\util_img.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <CudaCompile Include="..\..\src\absval_layer.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\arccos_layer.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\axpy_layer.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\batch_norm_layer.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\batch_reindex_layer.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\bias_layer.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\bnll_layer.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\bn_layer.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\channel_scale_layer.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\concat_layer.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\conv_layer.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\cosine_layer.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\crop_layer.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\cudnn\cudnn_bn_layer.cu">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\cudnn\cudnn_conv_layer.cu">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\cudnn\cudnn_lcn_layer.cu">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\cudnn\cudnn_lrn_layer.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\cudnn\cudnn_pooling_layer.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\cudnn\cudnn_relu_layer.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\cudnn\cudnn_sigmoid_layer.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\cudnn\cudnn_softmax_layer.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\cudnn\cudnn_tanh_layer.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\deconv_layer.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\dropout_layer.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\eltwise_layer.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\elu_layer.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\embed_layer.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\exp_layer.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\filter_layer.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\flip_layer.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\global_lse_margin_layer.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\gpu_util.cuh">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\gram_layer.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\hotspot_layer.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\im2col.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\im2col_layer.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\inner_distance_layer.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\inner_product_layer.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\insanity_layer.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\label_specific_add.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\largemargin_inner_product_layer.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\local_layer.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\log_layer.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\lrn_layer.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\lstm_unit_layer.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\margin_inner_product_layer.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\math_functions.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\moving_normalize_layer.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\mvn_layer.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\nms.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\noise_layer.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\normalize_layer.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\pairwise_layer.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\parameter_layer.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\permute_layer.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\pooling_layer.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\power_layer.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\predict_box_layer.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\prelu_layer.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\proposal_layer.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\psroi_pooling_layer.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\recurrent_layer.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\reduction_layer.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\relu_layer.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\resize_layer.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\roi_pooling_layer.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\scale_layer.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\sigmoid_layer.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\silence_layer.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\slice_layer.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\slope_layer.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\softmax_layer.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\soft_truncation_layer.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\split_layer.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\subregion_layer.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\tanh_layer.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\threshold_layer.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\tile_layer.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\transformer_layer.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\truncation_layer.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\util_img.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\absval_layer.hpp" />
+    <ClInclude Include="..\..\src\accuracy_layer.hpp" />
+    <ClInclude Include="..\..\src\arccos_layer.hpp" />
+    <ClInclude Include="..\..\src\argmax_layer.hpp" />
+    <ClInclude Include="..\..\src\axpy_layer.hpp" />
+    <ClInclude Include="..\..\src\base_conv_layer.hpp" />
+    <ClInclude Include="..\..\src\base_data_layer.hpp" />
+    <ClInclude Include="..\..\src\batch_norm_layer.hpp" />
+    <ClInclude Include="..\..\src\batch_reindex_layer.hpp" />
+    <ClInclude Include="..\..\src\bias_layer.hpp" />
+    <ClInclude Include="..\..\src\blob.hpp" />
+    <ClInclude Include="..\..\src\bnll_layer.hpp" />
+    <ClInclude Include="..\..\src\bn_layer.hpp" />
+    <ClInclude Include="..\..\src\caffe.hpp" />
+    <ClInclude Include="..\..\src\caffe.pb.h" />
+    <ClInclude Include="..\..\src\channel_scale_layer.hpp" />
+    <ClInclude Include="..\..\src\common.hpp" />
+    <ClInclude Include="..\..\src\concat_layer.hpp" />
+    <ClInclude Include="..\..\src\conv_layer.hpp" />
+    <ClInclude Include="..\..\src\cosine_layer.hpp" />
+    <ClInclude Include="..\..\src\crop_layer.hpp" />
+    <ClInclude Include="..\..\src\cudnn\cudnn.hpp" />
+    <ClInclude Include="..\..\src\cudnn\cudnn_batch_norm_layer.hpp" />
+    <ClInclude Include="..\..\src\cudnn\cudnn_bn_layer.hpp" />
+    <ClInclude Include="..\..\src\cudnn\cudnn_conv_layer.hpp" />
+    <ClInclude Include="..\..\src\cudnn\cudnn_lcn_layer.hpp" />
+    <ClInclude Include="..\..\src\cudnn\cudnn_lrn_layer.hpp" />
+    <ClInclude Include="..\..\src\cudnn\cudnn_pooling_layer.hpp" />
+    <ClInclude Include="..\..\src\cudnn\cudnn_relu_layer.hpp" />
+    <ClInclude Include="..\..\src\cudnn\cudnn_sigmoid_layer.hpp" />
+    <ClInclude Include="..\..\src\cudnn\cudnn_softmax_layer.hpp" />
+    <ClInclude Include="..\..\src\cudnn\cudnn_tanh_layer.hpp" />
+    <ClInclude Include="..\..\src\custom_layers.hpp" />
+    <ClInclude Include="..\..\src\data_transformer.hpp" />
+    <ClInclude Include="..\..\src\deconv_layer.hpp" />
+    <ClInclude Include="..\..\src\device_alternate.hpp" />
+    <ClInclude Include="..\..\src\dropout_layer.hpp" />
+    <ClInclude Include="..\..\src\dummy_data_layer.hpp" />
+    <ClInclude Include="..\..\src\eltwise_layer.hpp" />
+    <ClInclude Include="..\..\src\elu_layer.hpp" />
+    <ClInclude Include="..\..\src\embed_layer.hpp" />
+    <ClInclude Include="..\..\src\exp_layer.hpp" />
+    <ClInclude Include="..\..\src\fcn_accuracy_layer.hpp" />
+    <ClInclude Include="..\..\src\filler.hpp" />
+    <ClInclude Include="..\..\src\filter_layer.hpp" />
+    <ClInclude Include="..\..\src\flatten_layer.hpp" />
+    <ClInclude Include="..\..\src\flip_layer.hpp" />
+    <ClInclude Include="..\..\src\format.hpp" />
+    <ClInclude Include="..\..\src\global_lse_margin_layer.hpp" />
+    <ClInclude Include="..\..\src\gpu_memory.hpp" />
+    <ClInclude Include="..\..\src\hotspot_layer.hpp" />
+    <ClInclude Include="..\..\src\im2col.hpp" />
+    <ClInclude Include="..\..\src\im2col_layer.hpp" />
+    <ClInclude Include="..\..\src\inner_distance_layer.hpp" />
+    <ClInclude Include="..\..\src\inner_product_layer.hpp" />
+    <ClInclude Include="..\..\src\input_layer.hpp" />
+    <ClInclude Include="..\..\src\insert_splits.hpp" />
+    <ClInclude Include="..\..\src\io.hpp" />
+    <ClInclude Include="..\..\src\label_specific_add_layer.hpp" />
+    <ClInclude Include="..\..\src\largemargin_inner_product_layer.hpp" />
+    <ClInclude Include="..\..\src\layer.hpp" />
+    <ClInclude Include="..\..\src\layer_factory.hpp" />
+    <ClInclude Include="..\..\src\log_layer.hpp" />
+    <ClInclude Include="..\..\src\loss_layer.hpp" />
+    <ClInclude Include="..\..\src\lrn_layer.hpp" />
+    <ClInclude Include="..\..\src\lstm_layer.hpp" />
+    <ClInclude Include="..\..\src\margin_inner_product_layer.hpp" />
+    <ClInclude Include="..\..\src\math_functions.hpp" />
+    <ClInclude Include="..\..\src\memory_data_layer.hpp" />
+    <ClInclude Include="..\..\src\mkl_alternate.hpp" />
+    <ClInclude Include="..\..\src\moving_normalize_layer.hpp" />
+    <ClInclude Include="..\..\src\mvn_layer.hpp" />
+    <ClInclude Include="..\..\src\nccl.hpp" />
+    <ClInclude Include="..\..\src\net.hpp" />
+    <ClInclude Include="..\..\src\neuron_layer.hpp" />
+    <ClInclude Include="..\..\src\nms.hpp" />
+    <ClInclude Include="..\..\src\noise_layer.hpp" />
+    <ClInclude Include="..\..\src\normalize_layer.hpp" />
+    <ClInclude Include="..\..\src\pairwise_layer.hpp" />
+    <ClInclude Include="..\..\src\parameter_layer.hpp" />
+    <ClInclude Include="..\..\src\permute_layer.hpp" />
+    <ClInclude Include="..\..\src\pooling_layer.hpp" />
+    <ClInclude Include="..\..\src\power_layer.hpp" />
+    <ClInclude Include="..\..\src\predict_box_layer.hpp" />
+    <ClInclude Include="..\..\src\prelu_layer.hpp" />
+    <ClInclude Include="..\..\src\proposal_layer.hpp" />
+    <ClInclude Include="..\..\src\psroi_pooling_layer.hpp" />
+    <ClInclude Include="..\..\src\recurrent_layer.hpp" />
+    <ClInclude Include="..\..\src\reduction_layer.hpp" />
+    <ClInclude Include="..\..\src\relu_layer.hpp" />
+    <ClInclude Include="..\..\src\reshape_layer.hpp" />
+    <ClInclude Include="..\..\src\resize_layer.hpp" />
+    <ClInclude Include="..\..\src\rnn_layer.hpp" />
+    <ClInclude Include="..\..\src\scale_layer.hpp" />
+    <ClInclude Include="..\..\src\sigmoid_layer.hpp" />
+    <ClInclude Include="..\..\src\silence_layer.hpp" />
+    <ClInclude Include="..\..\src\slice_layer.hpp" />
+    <ClInclude Include="..\..\src\slope_layer.hpp" />
+    <ClInclude Include="..\..\src\softmax_layer.hpp" />
+    <ClInclude Include="..\..\src\soft_truncation_layer.hpp" />
+    <ClInclude Include="..\..\src\split_layer.hpp" />
+    <ClInclude Include="..\..\src\spp_layer.hpp" />
+    <ClInclude Include="..\..\src\syncedmem.hpp" />
+    <ClInclude Include="..\..\src\tanh_layer.hpp" />
+    <ClInclude Include="..\..\src\thread_local.hpp" />
+    <ClInclude Include="..\..\src\threshold_layer.hpp" />
+    <ClInclude Include="..\..\src\tile_layer.hpp" />
+    <ClInclude Include="..\..\src\truncation_layer.hpp" />
+    <ClInclude Include="..\..\src\upgrade_proto.hpp" />
+    <ClInclude Include="..\..\src\util_img.hpp" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{D1A6B81F-C692-4743-B11D-EF7E37CC5019}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>image_processor</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <ProjectName>tinycaffe</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\CUDA 10.1.props" />
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <TargetExt>.dll</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;USE_CUDNN;USE_OPENCV;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\3rdparty\include;$(SolutionDir)..\3rdparty\include\opencv\include;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\3rdparty\libs\release;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.1\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opencv_world310.lib;libopenblas.lib;libprotobuf.lib;gflags.lib;glog.lib;cublas.lib;cudart.lib;cudadevrt.lib;cudnn.lib;curand.lib;cudart_static.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <CudaCompile>
+      <CodeGeneration>compute_50,sm_50;compute_52,sm_52;compute_60,sm_60;compute_61,sm_61;%(CodeGeneration)</CodeGeneration>
+    </CudaCompile>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\CUDA 10.1.targets" />
+  </ImportGroup>
+</Project>
