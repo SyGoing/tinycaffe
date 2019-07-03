@@ -14,14 +14,15 @@
 二、编译
     目前仅仅只是在windows下呢，我提交了编译的sln工程和编译好的库（libwrap文件）,这个版本的caffe支持cuda10.1和cudnn7.5.1。
 	1、windows下编译，blob.hpp、io.hpp、net.hpp、common.hpp、layer.hpp、caffe.pb.h的文件开始加入：
-		1）、编译时：
-				#define LIBCAFFE __declspec(dllexport)
-		2）、调用时：
-				#ifdef CAFFE_EXPORTS
-				#define LIBCAFFE __declspec(dllexport)
-				#else
-				#define LIBCAFFE __declspec(dllimport)
-				#endif
+	
+	    1）、编译时：
+                #define LIBCAFFE __declspec(dllexport)
+	    2）、调用时：
+                #ifdef CAFFE_EXPORTS
+                #define LIBCAFFE __declspec(dllexport)
+                #else
+                #define LIBCAFFE __declspec(dllimport)
+                #endif
 	   
 	   三方依赖下载地址（百度网盘): https://pan.baidu.com/s/15x-5n9hb5UAkUlEm0uvy-A   
 	   (password: 6b8d（3rdparty(BaiduYun):https://pan.baidu.com/s/15x-5n9hb5UAkUlEm0uvy-A   password: 6b8d)
@@ -33,8 +34,8 @@
 		---libs
 		 
 
-		********我已经生成了好一份caffe.pb.h和caffe.pb.cc，对应的protobuf直接使用3rdpaty的protobuf库
-		********我已经生成了好一份caffe.pb.h和caffe.pb.cc，对应的protobuf直接使用3rdpaty的protobuf(3.0.0)库
+
+	   我已经生成了好一份caffe.pb.h和caffe.pb.cc，对应的protobuf直接使用3rdpaty的protobuf(3.0.0)库
 
        如果需要添加新的层，需要重新生成caffe.pb.h和caffe.pb.cc，protobuf库自由选择，但是版本一定要一致。
        首先删除3rdparty中的google文件夹
