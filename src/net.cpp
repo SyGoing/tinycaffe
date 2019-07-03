@@ -563,24 +563,24 @@ const vector<Blob<Dtype>*>& Net<Dtype>::Forward(
   return Forward(loss);
 }
 
-template <typename Dtype>
-void Net<Dtype>::BackwardFromTo(int start, int end) {
-  CHECK_GE(end, 0);
-  CHECK_LT(start, layers_.size());
-  for (int i = start; i >= end; --i) {
-    for (int c = 0; c < before_backward_.size(); ++c) {
-      before_backward_[c]->run(i);
-    }
-    if (layer_need_backward_[i]) {
-      layers_[i]->Backward(
-          top_vecs_[i], bottom_need_backward_[i], bottom_vecs_[i]);
-      if (debug_info_) { BackwardDebugInfo(i); }
-    }
-    for (int c = 0; c < after_backward_.size(); ++c) {
-      after_backward_[c]->run(i);
-    }
-  }
-}
+//template <typename Dtype>
+//void Net<Dtype>::BackwardFromTo(int start, int end) {
+//  CHECK_GE(end, 0);
+//  CHECK_LT(start, layers_.size());
+//  for (int i = start; i >= end; --i) {
+//    for (int c = 0; c < before_backward_.size(); ++c) {
+//      before_backward_[c]->run(i);
+//    }
+//    if (layer_need_backward_[i]) {
+//      layers_[i]->Backward(
+//          top_vecs_[i], bottom_need_backward_[i], bottom_vecs_[i]);
+//      if (debug_info_) { BackwardDebugInfo(i); }
+//    }
+//    for (int c = 0; c < after_backward_.size(); ++c) {
+//      after_backward_[c]->run(i);
+//    }
+//  }
+//}
 
 template <typename Dtype>
 void Net<Dtype>::ForwardDebugInfo(const int layer_id) {
@@ -608,32 +608,32 @@ void Net<Dtype>::ForwardDebugInfo(const int layer_id) {
   }
 }
 
-template <typename Dtype>
-void Net<Dtype>::BackwardDebugInfo(const int layer_id) {
-  const vector<Blob<Dtype>*>& bottom_vec = bottom_vecs_[layer_id];
-  for (int bottom_id = 0; bottom_id < bottom_vec.size(); ++bottom_id) {
-    if (!bottom_need_backward_[layer_id][bottom_id]) { continue; }
-    const Blob<Dtype>& blob = *bottom_vec[bottom_id];
-    const string& blob_name = blob_names_[bottom_id_vecs_[layer_id][bottom_id]];
-    const Dtype diff_abs_val_mean = blob.asum_diff() / blob.count();
-    //LOG_IF(INFO, Caffe::root_solver())
-    //    << "    [Backward] "
-    //    << "Layer " << layer_names_[layer_id]
-    //    << ", bottom blob " << blob_name
-    //    << " diff: " << diff_abs_val_mean;
-  }
-  for (int param_id = 0; param_id < layers_[layer_id]->blobs().size();
-       ++param_id) {
-    if (!layers_[layer_id]->param_propagate_down(param_id)) { continue; }
-    const Blob<Dtype>& blob = *layers_[layer_id]->blobs()[param_id];
-    const Dtype diff_abs_val_mean = blob.asum_diff() / blob.count();
-    //LOG_IF(INFO, Caffe::root_solver())
-    //    << "    [Backward] "
-    //    << "Layer " << layer_names_[layer_id]
-    //    << ", param blob " << param_id
-    //    << " diff: " << diff_abs_val_mean;
-  }
-}
+//template <typename Dtype>
+//void Net<Dtype>::BackwardDebugInfo(const int layer_id) {
+//  const vector<Blob<Dtype>*>& bottom_vec = bottom_vecs_[layer_id];
+//  for (int bottom_id = 0; bottom_id < bottom_vec.size(); ++bottom_id) {
+//    if (!bottom_need_backward_[layer_id][bottom_id]) { continue; }
+//    const Blob<Dtype>& blob = *bottom_vec[bottom_id];
+//    const string& blob_name = blob_names_[bottom_id_vecs_[layer_id][bottom_id]];
+//    const Dtype diff_abs_val_mean = blob.asum_diff() / blob.count();
+//    //LOG_IF(INFO, Caffe::root_solver())
+//    //    << "    [Backward] "
+//    //    << "Layer " << layer_names_[layer_id]
+//    //    << ", bottom blob " << blob_name
+//    //    << " diff: " << diff_abs_val_mean;
+//  }
+//  for (int param_id = 0; param_id < layers_[layer_id]->blobs().size();
+//       ++param_id) {
+//    if (!layers_[layer_id]->param_propagate_down(param_id)) { continue; }
+//    const Blob<Dtype>& blob = *layers_[layer_id]->blobs()[param_id];
+//    const Dtype diff_abs_val_mean = blob.asum_diff() / blob.count();
+//    //LOG_IF(INFO, Caffe::root_solver())
+//    //    << "    [Backward] "
+//    //    << "Layer " << layer_names_[layer_id]
+//    //    << ", param blob " << param_id
+//    //    << " diff: " << diff_abs_val_mean;
+//  }
+//}
 
 template <typename Dtype>
 void Net<Dtype>::UpdateDebugInfo(const int param_id) {
@@ -693,34 +693,34 @@ void Net<Dtype>::ShareTrainedLayersWith(const Net* other) {
   }
 }
 
-template <typename Dtype>
-void Net<Dtype>::BackwardFrom(int start) {
-  BackwardFromTo(start, 0);
-}
+//template <typename Dtype>
+//void Net<Dtype>::BackwardFrom(int start) {
+//  BackwardFromTo(start, 0);
+//}
+//
+//template <typename Dtype>
+//void Net<Dtype>::BackwardTo(int end) {
+//  BackwardFromTo(layers_.size() - 1, end);
+//}
 
-template <typename Dtype>
-void Net<Dtype>::BackwardTo(int end) {
-  BackwardFromTo(layers_.size() - 1, end);
-}
-
-template <typename Dtype>
-void Net<Dtype>::Backward() {
-  BackwardFromTo(layers_.size() - 1, 0);
-  if (debug_info_) {
-    Dtype asum_data = 0, asum_diff = 0, sumsq_data = 0, sumsq_diff = 0;
-    for (int i = 0; i < learnable_params_.size(); ++i) {
-      asum_data += learnable_params_[i]->asum_data();
-      asum_diff += learnable_params_[i]->asum_diff();
-      sumsq_data += learnable_params_[i]->sumsq_data();
-      sumsq_diff += learnable_params_[i]->sumsq_diff();
-    }
-    const Dtype l2norm_data = std::sqrt(sumsq_data);
-    const Dtype l2norm_diff = std::sqrt(sumsq_diff);
-    LOG(ERROR) << "    [Backward] All net params (data, diff): "
-               << "L1 norm = (" << asum_data << ", " << asum_diff << "); "
-               << "L2 norm = (" << l2norm_data << ", " << l2norm_diff << ")";
-  }
-}
+//template <typename Dtype>
+//void Net<Dtype>::Backward() {
+//  BackwardFromTo(layers_.size() - 1, 0);
+//  if (debug_info_) {
+//    Dtype asum_data = 0, asum_diff = 0, sumsq_data = 0, sumsq_diff = 0;
+//    for (int i = 0; i < learnable_params_.size(); ++i) {
+//      asum_data += learnable_params_[i]->asum_data();
+//      asum_diff += learnable_params_[i]->asum_diff();
+//      sumsq_data += learnable_params_[i]->sumsq_data();
+//      sumsq_diff += learnable_params_[i]->sumsq_diff();
+//    }
+//    const Dtype l2norm_data = std::sqrt(sumsq_data);
+//    const Dtype l2norm_diff = std::sqrt(sumsq_diff);
+//    LOG(ERROR) << "    [Backward] All net params (data, diff): "
+//               << "L1 norm = (" << asum_data << ", " << asum_diff << "); "
+//               << "L2 norm = (" << l2norm_data << ", " << l2norm_diff << ")";
+//  }
+//}
 
 template <typename Dtype>
 void Net<Dtype>::Reshape() {

@@ -45,17 +45,7 @@ namespace caffe {
     CUDA_POST_KERNEL_CHECK;
   }
 
-  template <typename Dtype>
-  void LabelSpecificAddLayer<Dtype>::Backward_gpu(const vector<Blob<Dtype>*>& top,
-                                                     const vector<bool>& propagate_down,
-                                                     const vector<Blob<Dtype>*>& bottom) {
-    if (top[0] != bottom[0] && propagate_down[0]) {
-      int count = bottom[0]->count();
-      const Dtype* top_diff = top[0]->gpu_diff();
-      Dtype* bottom_diff = bottom[0]->mutable_gpu_diff();
-      caffe_copy(count, top_diff, bottom_diff);
-    }
-  }
+
 
   INSTANTIATE_LAYER_GPU_FUNCS(LabelSpecificAddLayer);
 }  // namespace caffe

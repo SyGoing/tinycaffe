@@ -70,15 +70,6 @@ void HotspotLayer<Dtype>::Forward_cpu(const vector<Blob<Dtype>*>& bottom,
   }
 }
 
-template <typename Dtype>
-void HotspotLayer<Dtype>::Backward_cpu(const vector<Blob<Dtype>*>& top,
-      const vector<bool>& propagate_down, const vector<Blob<Dtype>*>& bottom) {
-  // Acatually, we can get gradient from the top_diff for the coordinate values.
-  // However, I can't imagine in which scene this could be useful.
-  // I will implement it one day I come up with some ideas to utilize the gradients.
-  NOT_IMPLEMENTED;
-}
-
 
 #ifdef CPU_ONLY
 STUB_GPU(HotspotLayer);

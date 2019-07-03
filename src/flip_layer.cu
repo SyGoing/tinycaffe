@@ -33,22 +33,7 @@ void FlipLayer<Dtype>::Forward_gpu(const vector<Blob<Dtype>*>& bottom,
                                 bottom_data, top_data, flip_height_, flip_width_);
 }
 
-template <typename Dtype>
-void FlipLayer<Dtype>::Backward_gpu(const vector<Blob<Dtype>*>& top,
-    const vector<bool>& propagate_down, const vector<Blob<Dtype>*>& bottom) {
-  const Dtype* top_diff = top[0]->gpu_diff();
-  Dtype* bottom_diff = bottom[0]->mutable_gpu_diff();
-  int num = bottom[0]->num();
-  int channels = bottom[0]->channels();
-  int width = bottom[0]->width();
-  int height = bottom[0]->height();
 
-  if (propagate_down[0]) {
-    FlipKernel<Dtype> << <CAFFE_GET_BLOCKS(num * channels * height * width),
-      CAFFE_CUDA_NUM_THREADS >> >(num, channels, height, width,
-                                  top_diff, bottom_diff, flip_height_, flip_width_);
-  }
-}
 
 INSTANTIATE_LAYER_GPU_FUNCS(FlipLayer);
 

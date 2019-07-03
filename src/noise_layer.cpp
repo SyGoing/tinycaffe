@@ -36,14 +36,7 @@ void NoiseLayer<Dtype>::Forward_cpu(const vector<Blob<Dtype>*>& bottom,
    }*/
 }
 
-template <typename Dtype>
-void NoiseLayer<Dtype>::Backward_cpu(const vector<Blob<Dtype>*>& top,
-    const vector<bool>& propagate_down,
-    const vector<Blob<Dtype>*>& bottom) {
-  if (propagate_down[0]) {
-    bottom[0]->ShareDiff(*top[0]);
-  }
-}
+
 
 
 #ifdef CPU_ONLY

@@ -117,25 +117,7 @@ namespace caffe {
     }
   }
 
-  template <typename Dtype>
-  void PermuteLayer<Dtype>::Backward_cpu(const vector<Blob<Dtype>*>& top,
-                                         const vector<bool>& propagate_down, const vector<Blob<Dtype>*>& bottom) {
-    if (need_permute_) {
-      Dtype* top_diff = top[0]->mutable_cpu_diff();
-      Dtype* bottom_diff = bottom[0]->mutable_cpu_diff();
-      const int top_count = top[0]->count();
-      const int* permute_order = permute_order_.cpu_data();
-      const int* old_steps = old_steps_.cpu_data();
-      const int* new_steps = new_steps_.cpu_data();
-      bool forward = false;
-      Permute(top_count, bottom_diff, forward, permute_order, old_steps,
-              new_steps, num_axes_, top_diff);
-    }
-    else {
-      // If there is no need to permute, we share diff to save memory.
-      bottom[0]->ShareDiff(*top[0]);
-    }
-  }
+ 
 
 #ifdef CPU_ONLY
   STUB_GPU(PermuteLayer);

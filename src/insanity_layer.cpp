@@ -68,31 +68,7 @@ void InsanityLayer<Dtype>::Forward_cpu(const vector<Blob<Dtype>*>& bottom,
   //}
 }
 
-template <typename Dtype>
-void InsanityLayer<Dtype>::Backward_cpu(const vector<Blob<Dtype>*>& top,
-    const vector<bool>& propagate_down,
-    const vector<Blob<Dtype>*>& bottom) {
-  const Dtype* bottom_data = bottom[0]->cpu_data();
-  const Dtype* slope_data = alpha.cpu_data();
-  const Dtype* top_diff = top[0]->cpu_diff();
-  const int count = bottom[0]->count();
-  const int dim = bottom[0]->count(2);
-  const int channels = bottom[0]->channels();
 
-  // For in-place computation
-  if (top[0] == bottom[0] && lb_ < 0) {
-    bottom_data = bottom_memory_.cpu_data();
-  }
-
-  // Propagate to bottom
-  if (propagate_down[0]) {
-    Dtype* bottom_diff = bottom[0]->mutable_cpu_diff();
-    for (int i = 0; i < count; ++i) {
-      bottom_diff[i] = top_diff[i] * ((bottom_data[i] > 0)
-          + (Dtype)(bottom_data[i] <= 0) / slope_data[i]);
-    }
-  }
-}
 
 
 #ifdef CPU_ONLY

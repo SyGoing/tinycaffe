@@ -175,77 +175,7 @@ __global__ void inner_distance_weight_backward_L1_center_only(const int M_, cons
   }
 }
 
-template <typename Dtype>
-void InnerDistanceLayer<Dtype>::Backward_gpu(const vector<Blob<Dtype>*>& top,
-    const vector<bool>& propagate_down,
-    const vector<Blob<Dtype>*>& bottom) {
-  const Dtype* top_diff = top[0]->gpu_diff();
-  const Dtype* bottom_data = bottom[0]->gpu_data();
-  const Dtype* weight = bottom.size() >= 2 ? bottom[1]->gpu_data() : this->blobs_[0]->gpu_data();
 
-  if ((bottom.size() == 1 && this->param_propagate_down_[0]) ||
-    (bottom.size() >= 2 && propagate_down[1])) {
-    Dtype* weight_diff = bottom.size() >= 2 ? bottom[1]->mutable_gpu_diff() : this->blobs_[0]->mutable_gpu_diff();
-    if (bottom.size() >= 2) {
-      caffe_gpu_set(bottom[1]->count(), Dtype(0), weight_diff);
-    }
-    const Dtype* label_data = NULL;
-    if (update_center_only_) {
-      label_data = bottom[bottom.size() - 1]->gpu_data();
-    }
-    // Gradient with respect to weight
-    if (distance_type_ == "L2") {
-      if (update_center_only_) {
-        // NOLINT_NEXT_LINE(whitespace/operators)
-        inner_distance_weight_backward_L2_center_only<Dtype> << <CAFFE_GET_BLOCKS(K_),
-          CAFFE_CUDA_NUM_THREADS >> > (M_, N_, K_,
-                                       bottom_data, weight, label_data, top_diff, weight_diff);
-      }
-      else {
-        // NOLINT_NEXT_LINE(whitespace/operators)
-        inner_distance_weight_backward_L2<Dtype> << <CAFFE_GET_BLOCKS(N_ * K_),
-          CAFFE_CUDA_NUM_THREADS >> > (M_, N_, K_,
-                                       bottom_data, weight, top_diff, weight_diff);
-      }
-    }
-    else if (distance_type_ == "L1") {
-      if (update_center_only_) {
-        // NOLINT_NEXT_LINE(whitespace/operators)
-        inner_distance_weight_backward_L1_center_only<Dtype> << <CAFFE_GET_BLOCKS(K_),
-          CAFFE_CUDA_NUM_THREADS >> > (M_, N_, K_,
-                                       bottom_data, weight, label_data, top_diff, weight_diff);
-      }
-      else {
-        // NOLINT_NEXT_LINE(whitespace/operators)
-        inner_distance_weight_backward_L1<Dtype> << <CAFFE_GET_BLOCKS(N_ * K_),
-          CAFFE_CUDA_NUM_THREADS >> > (M_, N_, K_,
-                                       bottom_data, weight, top_diff, weight_diff);
-      }
-    }
-    else {
-      NOT_IMPLEMENTED;
-    }
-  }
-  if (propagate_down[0]) {
-    Dtype* bottom_diff = bottom[0]->mutable_gpu_diff();
-    caffe_gpu_set<Dtype>(M_ * K_, 0, bottom_diff);
-    if (distance_type_ == "L2") {
-      // NOLINT_NEXT_LINE(whitespace/operators)
-      inner_distance_backward_L2<Dtype> << <CAFFE_GET_BLOCKS(M_ * K_),
-        CAFFE_CUDA_NUM_THREADS >> > (M_, N_, K_,
-                                     bottom_data, weight, top_diff, bottom_diff);
-    }
-    else if (distance_type_ == "L1") {
-      // NOLINT_NEXT_LINE(whitespace/operators)
-      inner_distance_backward_L1<Dtype> << <CAFFE_GET_BLOCKS(M_ * K_),
-        CAFFE_CUDA_NUM_THREADS >> > (M_, N_, K_,
-                                     bottom_data, weight, top_diff, bottom_diff);
-    }
-    else {
-      NOT_IMPLEMENTED;
-    }
-  }
-}
 
 INSTANTIATE_LAYER_GPU_FUNCS(InnerDistanceLayer);
 

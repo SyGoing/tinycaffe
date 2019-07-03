@@ -133,91 +133,7 @@ __global__ void Margin_quadruple_forward_gpu(int nthreads, const int N_, Dtype l
   }
 }
 
-template <typename Dtype>
-__global__ void Margin_bottom_double_backward_gpu(int nthreads, const int N_, const int K_, Dtype lambda,
-            const Dtype* bottom, const Dtype* weight, const Dtype* top_diff, const Dtype* label,
-            const Dtype* x_norm, const Dtype* sign_0, const Dtype* cos_theta,
-            const Dtype* cos_theta_quadratic, Dtype* bottom_diff) {
-  CUDA_KERNEL_LOOP(index, nthreads) {
-    const int i = index / K_;
-    const int j = index % K_;
-    bottom_diff[index] = (Dtype)0.;
-    const int label_value = static_cast<int>(label[i]);
-    for (int n = 0; n < N_; n++) {
-      if (label_value != n) {
-        bottom_diff[index] += top_diff[i * N_ + n] * weight[n * K_ + j];
-      } else {
-        Dtype coeff_w = (Dtype)4. * sign_0[i * N_ + n] * cos_theta[i * N_ + n];
-        Dtype coeff_x = - (Dtype)1./ x_norm[i] * ((Dtype)2. * sign_0[i * N_ + n] *  
-                     cos_theta_quadratic[i * N_ + n] + (Dtype)1.);
-        Dtype coeff_norm = sqrt(coeff_w * coeff_w + coeff_x * coeff_x);
-        coeff_w = coeff_w / coeff_norm;
-        coeff_x = coeff_x / coeff_norm;
-        bottom_diff[index] += (Dtype)1./ ((Dtype)1. + lambda) * top_diff[i * N_ + n] * 
-                              (coeff_w * weight[n * K_ + j] + coeff_x * bottom[index]);
-        bottom_diff[index] += lambda / ((Dtype)1. + lambda) * top_diff[i * N_ + n] * weight[n * K_ + j];
-      }
-    }
-  }
-}
 
-
-template <typename Dtype>
-__global__ void Margin_bottom_triple_backward_gpu(int nthreads, const int N_, const int K_, Dtype lambda,
-            const Dtype* bottom, const Dtype* weight, const Dtype* top_diff, const Dtype* label,
-            const Dtype* x_norm, const Dtype* sign_1, const Dtype* sign_2, const Dtype* cos_theta_quadratic,
-            const Dtype* cos_theta_cubic, Dtype* bottom_diff) {
-  CUDA_KERNEL_LOOP(index, nthreads) {
-    const int i = index / K_;
-    const int j = index % K_;
-    bottom_diff[index] = (Dtype)0.;
-    const int label_value = static_cast<int>(label[i]);
-    for (int n = 0; n < N_; n++) {
-      if (label_value != n) {
-        bottom_diff[index] += top_diff[i * N_ + n] * weight[n * K_ + j];
-      } else {
-        Dtype coeff_w = sign_1[i * N_ + n] * ((Dtype)12. * cos_theta_quadratic[i * N_ + n] - (Dtype)3.);
-        Dtype coeff_x = - (Dtype)1./ x_norm[i] * ((Dtype)8. * sign_1[i * N_ + n] * cos_theta_cubic[i * N_ + n] - 
-                    sign_2[i * N_ + n]);
-        Dtype coeff_norm = sqrt(coeff_w * coeff_w + coeff_x * coeff_x);
-        coeff_w = coeff_w / coeff_norm;
-        coeff_x = coeff_x / coeff_norm;
-        bottom_diff[index] += (Dtype)1./ ((Dtype)1. + lambda) * top_diff[i * N_ + n] * 
-                              (coeff_w * weight[n * K_ + j] + coeff_x * bottom[index]);
-        bottom_diff[index] += lambda / ((Dtype)1. + lambda) * top_diff[i * N_ + n] * weight[n * K_ + j];
-      }
-    }
-  }
-}
-
-template <typename Dtype>
-__global__ void Margin_bottom_quadruple_backward_gpu(int nthreads, const int N_, const int K_, Dtype lambda,
-            const Dtype* bottom, const Dtype* weight, const Dtype* top_diff, const Dtype* label,
-            const Dtype* x_norm, const Dtype* sign_3, const Dtype* sign_4,
-            const Dtype* cos_theta, const Dtype* cos_theta_quadratic, 
-            const Dtype* cos_theta_cubic, const Dtype* cos_theta_quartic, Dtype* bottom_diff) {
-  CUDA_KERNEL_LOOP(index, nthreads) {
-    const int i = index / K_;
-    const int j = index % K_;
-    bottom_diff[index] = (Dtype)0.;
-    const int label_value = static_cast<int>(label[i]);
-    for (int n = 0; n < N_; n++) {
-      if (label_value != n) {
-        bottom_diff[index] += top_diff[i * N_ + n] * weight[n * K_ + j];
-      } else {
-        Dtype coeff_w = sign_3[i * N_ + n] * ((Dtype)32. * cos_theta_cubic[i * N_ + n] - (Dtype)16. * cos_theta[i * N_ + n]);
-        Dtype coeff_x = - (Dtype)1./ x_norm[i] * (sign_3[i * N_ + n] * ((Dtype)24. * cos_theta_quartic[i * N_ + n] - 
-                    (Dtype)8. * cos_theta_quadratic[i * N_ + n] - 1) - sign_4[i * N_ + n]);
-        Dtype coeff_norm = sqrt(coeff_w * coeff_w + coeff_x * coeff_x);
-        coeff_w = coeff_w / coeff_norm;
-        coeff_x = coeff_x / coeff_norm;
-        bottom_diff[index] += (Dtype)1./ ((Dtype)1. + lambda) * top_diff[i * N_ + n] * 
-                              (coeff_w * weight[n * K_ + j] + coeff_x * bottom[index]);
-        bottom_diff[index] += lambda / ((Dtype)1. + lambda) * top_diff[i * N_ + n] * weight[n * K_ + j];
-      }
-    }
-  }
-}
 
 template <typename Dtype>
 void MarginInnerProductLayer<Dtype>::Forward_gpu(const vector<Blob<Dtype>*>& bottom,
@@ -329,58 +245,7 @@ void MarginInnerProductLayer<Dtype>::Forward_gpu(const vector<Blob<Dtype>*>& bot
   }
 }
 
-template <typename Dtype>
-void MarginInnerProductLayer<Dtype>::Backward_gpu(const vector<Blob<Dtype>*>& top,
-    const vector<bool>& propagate_down,
-    const vector<Blob<Dtype>*>& bottom) {
-  const Dtype* top_diff = top[0]->gpu_diff();
-  const Dtype* bottom_data = bottom[0]->gpu_data();
-  const Dtype* label = bottom[1]->gpu_data();
-  const Dtype* weight = this->blobs_[0]->gpu_data();
 
-  if (this->param_propagate_down_[0]) {
-    // Gradient with respect to weight
-    caffe_gpu_gemm<Dtype>(CblasTrans, CblasNoTrans, N_, K_, M_, (Dtype)1.,
-        top_diff, bottom_data, (Dtype)1., this->blobs_[0]->mutable_gpu_diff());
-  }
-
-  if (propagate_down[0]) {
-    Dtype* bottom_diff = bottom[0]->mutable_gpu_diff();
-    // Gradient with respect to bottom data
-    int nthreads = M_ * K_;
-    switch (type_) {
-    case MarginInnerProductParameter_MarginType_SINGLE:
-      caffe_gpu_gemm<Dtype>(CblasNoTrans, CblasNoTrans, M_, K_, N_, (Dtype)1.,
-        top_diff, this->blobs_[0]->gpu_data(), (Dtype)0.,
-        bottom[0]->mutable_gpu_diff());
-      break;
-    case MarginInnerProductParameter_MarginType_DOUBLE:
-      Margin_bottom_double_backward_gpu<Dtype><<<CAFFE_GET_BLOCKS(nthreads),
-        CAFFE_CUDA_NUM_THREADS>>>(nthreads, N_, K_, lambda_, bottom_data, weight, top_diff, label,
-                                  x_norm_.gpu_data(), sign_0_.gpu_data(), 
-                                  cos_theta_.gpu_data(), cos_theta_quadratic_.gpu_data(),                                  
-                                  bottom_diff);
-      break;
-    case MarginInnerProductParameter_MarginType_TRIPLE:
-      Margin_bottom_triple_backward_gpu<Dtype><<<CAFFE_GET_BLOCKS(nthreads),
-        CAFFE_CUDA_NUM_THREADS>>>(nthreads, N_, K_, lambda_, bottom_data, weight, top_diff, label,
-                                  x_norm_.gpu_data(), sign_1_.gpu_data(), sign_2_.gpu_data(),
-                                  cos_theta_quadratic_.gpu_data(), cos_theta_cubic_.gpu_data(),
-                                  bottom_diff);
-      break;
-    case MarginInnerProductParameter_MarginType_QUADRUPLE:
-      Margin_bottom_quadruple_backward_gpu<Dtype><<<CAFFE_GET_BLOCKS(nthreads),
-        CAFFE_CUDA_NUM_THREADS>>>(nthreads, N_, K_, lambda_, bottom_data, weight, top_diff, label,
-                                  x_norm_.gpu_data(), sign_3_.gpu_data(), sign_4_.gpu_data(),
-                                  cos_theta_.gpu_data(), cos_theta_quadratic_.gpu_data(),
-                                  cos_theta_cubic_.gpu_data(), cos_theta_quartic_.gpu_data(),
-                                  bottom_diff);
-      break;
-    default:
-      LOG(FATAL) << "Unknown margin type.";
-    }
-  }
-}
 
 INSTANTIATE_LAYER_GPU_FUNCS(MarginInnerProductLayer);
 

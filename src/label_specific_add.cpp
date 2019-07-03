@@ -58,19 +58,6 @@ void LabelSpecificAddLayer<Dtype>::Forward_cpu(const vector<Blob<Dtype>*>& botto
   }
 }
 
-template <typename Dtype>
-void LabelSpecificAddLayer<Dtype>::Backward_cpu(const vector<Blob<Dtype>*>& top,
-                                                   const vector<bool>& propagate_down,
-                                                   const vector<Blob<Dtype>*>& bottom) {
-  if (top[0] != bottom[0] && propagate_down[0]) {
-    const Dtype* top_diff = top[0]->cpu_diff();
-    Dtype* bottom_diff = bottom[0]->mutable_cpu_diff();
-    int count = bottom[0]->count();
-    caffe_copy(count, top_diff, bottom_diff);
-  }
-}
-
-
 #ifdef CPU_ONLY
 STUB_GPU(LabelSpecificAddLayer);
 #endif

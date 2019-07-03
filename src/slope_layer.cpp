@@ -44,21 +44,7 @@ void SlopeLayer<Dtype>::Forward_cpu(const vector<Blob<Dtype>*>& bottom,
   }
 }
 
-template <typename Dtype>
-void SlopeLayer<Dtype>::Backward_cpu(const vector<Blob<Dtype>*>& top,
-      const vector<bool>& propagate_down, const vector<Blob<Dtype>*>& bottom) {
-  const Dtype* top_diff = top[0]->cpu_diff();
-  Dtype* bottom_diff = bottom[0]->mutable_cpu_diff();
-  int num = bottom[0]->num();
-  int channel = bottom[0]->channels();
-  int height = bottom[0]->height();
-  int width = bottom[0]->width();
-  int spatial_dim = height * width;
 
-  for (int n = 0; n < num; n++) {
-    caffe_copy(channel * spatial_dim, top_diff + (channel + 2) * spatial_dim * n, bottom_diff + channel * spatial_dim * n);
-  }
-}
 
 #ifdef CPU_ONLY
 STUB_GPU(SlopeLayer);

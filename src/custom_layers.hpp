@@ -52,11 +52,6 @@ namespace caffe {
 		virtual void Forward_gpu(const vector<Blob<Dtype>*>& bottom,
 			const vector<Blob<Dtype>*>& top);
 
-		virtual void Backward_cpu(const vector<Blob<Dtype>*>& top,
-			const vector<bool>& propagate_down, const vector<Blob<Dtype>*>& bottom);
-		virtual void Backward_gpu(const vector<Blob<Dtype>*>& top,
-			const vector<bool>& propagate_down, const vector<Blob<Dtype>*>& bottom);
-
 
 		Dtype lb_, ub_, mean_slope;
 		Blob<Dtype> alpha;  // random generated negative slope
@@ -87,10 +82,6 @@ namespace caffe {
 			const vector<Blob<Dtype>*>& top);
 		virtual void Forward_gpu(const vector<Blob<Dtype>*>& bottom,
 			const vector<Blob<Dtype>*>& top);
-		virtual void Backward_cpu(const vector<Blob<Dtype>*>& top,
-			const vector<bool>& propagate_down, const vector<Blob<Dtype>*>& bottom);
-		virtual void Backward_gpu(const vector<Blob<Dtype>*>& top,
-			const vector<bool>& propagate_down, const vector<Blob<Dtype>*>& bottom);
 
 		int channels_;
 		int height_;
@@ -121,11 +112,6 @@ namespace caffe {
 			const vector<Blob<Dtype>*>& top);
 		virtual void Forward_gpu(const vector<Blob<Dtype>*>& bottom,
 			const vector<Blob<Dtype>*>& top);
-		virtual void Backward_cpu(const vector<Blob<Dtype>*>& top,
-			const vector<bool>& propagate_down, const vector<Blob<Dtype>*>& bottom);
-		virtual void Backward_gpu(const vector<Blob<Dtype>*>& top,
-			const vector<bool>& propagate_down, const vector<Blob<Dtype>*>& bottom);
-
 
 		int kernel_size_;
 		int stride_;
@@ -174,11 +160,6 @@ namespace caffe {
 		virtual void Forward_gpu(const vector<Blob<Dtype>*>& bottom,
 			const vector<Blob<Dtype>*>& top);
 
-		virtual void Backward_cpu(const vector<Blob<Dtype>*>& top,
-			const vector<bool>& propagate_down, const vector<Blob<Dtype>*>& bottom);
-		virtual void Backward_gpu(const vector<Blob<Dtype>*>& top,
-			const vector<bool>& propagate_down, const vector<Blob<Dtype>*>& bottom);
-
 		Blob<Dtype> diff_;
 		Blob<Dtype> errors_;
 		bool has_weights_;
@@ -206,10 +187,6 @@ namespace caffe {
   protected:
     virtual void Forward_cpu(const vector<Blob<Dtype>*>& bottom, const vector<Blob<Dtype>*>& top);
     virtual void Forward_gpu(const vector<Blob<Dtype>*>& bottom, const vector<Blob<Dtype>*>& top);
-    virtual void Backward_cpu(const vector<Blob<Dtype>*>& top,
-                              const vector<bool>& propagate_down, const vector<Blob<Dtype>*>& bottom);
-    virtual void Backward_gpu(const vector<Blob<Dtype>*>& top,
-                              const vector<bool>& propagate_down, const vector<Blob<Dtype>*>& bottom);
 
     Blob<Dtype> diff_ap_;  // cached for backward pass
     Blob<Dtype> diff_an_;  // cached for backward pass
@@ -250,10 +227,6 @@ namespace caffe {
 			const vector<Blob<Dtype>*>& top);
 		virtual void Forward_gpu(const vector<Blob<Dtype>*>& bottom,
 			const vector<Blob<Dtype>*>& top);
-		virtual void Backward_cpu(const vector<Blob<Dtype>*>& top,
-			const vector<bool>& propagate_down, const vector<Blob<Dtype>*>& bottom);
-		virtual void Backward_gpu(const vector<Blob<Dtype>*>& top,
-			const vector<bool>& propagate_down, const vector<Blob<Dtype>*>& bottom);
 
 		int count_;
 		Blob<Dtype> CoordinateTarget;//3*(nwh)
@@ -283,10 +256,6 @@ namespace caffe {
 			const vector<Blob<Dtype>*>& top);
 		virtual void Forward_gpu(const vector<Blob<Dtype>*>& bottom,
 			const vector<Blob<Dtype>*>& top);
-		virtual void Backward_cpu(const vector<Blob<Dtype>*>& top,
-			const vector<bool>& propagate_down, const vector<Blob<Dtype>*>& bottom);
-		virtual void Backward_gpu(const vector<Blob<Dtype>*>& top,
-			const vector<bool>& propagate_down, const vector<Blob<Dtype>*>& bottom);
 	};
 
   /**
@@ -365,10 +334,6 @@ namespace caffe {
     *        \end{array} \right.
     *      @f$.
     */
-    virtual void Backward_cpu(const vector<Blob<Dtype>*>& top,
-                              const vector<bool>& propagate_down, const vector<Blob<Dtype>*>& bottom);
-    virtual void Backward_gpu(const vector<Blob<Dtype>*>& top,
-                              const vector<bool>& propagate_down, const vector<Blob<Dtype>*>& bottom);
 
     bool channel_shared_;
     Blob<Dtype> multiplier_;  // dot multiplier for backward computation of params
@@ -403,10 +368,7 @@ namespace caffe {
                              const vector<Blob<Dtype>*>& top);
     virtual void Forward_gpu(const vector<Blob<Dtype>*>& bottom,
                              const vector<Blob<Dtype>*>& top);
-    virtual void Backward_cpu(const vector<Blob<Dtype>*>& top,
-                              const vector<bool>& propagate_down, const vector<Blob<Dtype>*>& bottom);
-    virtual void Backward_gpu(const vector<Blob<Dtype>*>& top,
-                              const vector<bool>& propagate_down, const vector<Blob<Dtype>*>& bottom);
+
 
     int height_;
     int width_;
@@ -431,10 +393,6 @@ namespace caffe {
                              const vector<Blob<Dtype>*>& top);
     virtual void Forward_gpu(const vector<Blob<Dtype>*>& bottom,
                              const vector<Blob<Dtype>*>& top);
-    virtual void Backward_cpu(const vector<Blob<Dtype>*>& top,
-                              const vector<bool>& propagate_down, const vector<Blob<Dtype>*>& bottom);
-    virtual void Backward_gpu(const vector<Blob<Dtype>*>& top,
-                              const vector<bool>& propagate_down, const vector<Blob<Dtype>*>& bottom);
 
   };
 

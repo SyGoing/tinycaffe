@@ -438,7 +438,6 @@
     <ClInclude Include="..\..\src\layer.hpp" />
     <ClInclude Include="..\..\src\layer_factory.hpp" />
     <ClInclude Include="..\..\src\log_layer.hpp" />
-    <ClInclude Include="..\..\src\loss_layer.hpp" />
     <ClInclude Include="..\..\src\lrn_layer.hpp" />
     <ClInclude Include="..\..\src\lstm_layer.hpp" />
     <ClInclude Include="..\..\src\margin_inner_product_layer.hpp" />

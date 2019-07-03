@@ -76,45 +76,6 @@ namespace caffe {
 
   }
 
-  template <typename Dtype>
-  void ResizeLayer<Dtype>::Backward_cpu(const vector<Blob<Dtype>*>& top,
-                                        const vector<bool>& propagate_down, const vector<Blob<Dtype>*>& bottom) {
-    Dtype* bottom_diff = bottom[0]->mutable_cpu_diff();
-    Dtype* top_diff = top[0]->mutable_cpu_diff();
-
-    const Dtype* loc1 = this->locs_[0]->cpu_data();
-    const Dtype* weight1 = this->locs_[0]->cpu_diff();
-    const Dtype* loc2 = this->locs_[1]->cpu_data();
-    const Dtype* weight2 = this->locs_[1]->cpu_diff();
-    const Dtype* loc3 = this->locs_[2]->cpu_data();
-    const Dtype* weight3 = this->locs_[2]->cpu_diff();
-    const Dtype* loc4 = this->locs_[3]->cpu_data();
-    const Dtype* weight4 = this->locs_[3]->cpu_diff();
-
-
-    caffe::caffe_set(bottom[0]->count(), Dtype(0), bottom_diff);
-
-    caffe::GetBiLinearResizeMatRules_cpu(bottom[0]->height(), bottom[0]->width(),
-                                         top[0]->height(), top[0]->width(),
-                                         this->locs_[0]->mutable_cpu_data(), this->locs_[0]->mutable_cpu_diff(),
-                                         this->locs_[1]->mutable_cpu_data(), this->locs_[1]->mutable_cpu_diff(),
-                                         this->locs_[2]->mutable_cpu_data(), this->locs_[2]->mutable_cpu_diff(),
-                                         this->locs_[3]->mutable_cpu_data(), this->locs_[3]->mutable_cpu_diff());
-
-    for (int n = 0; n< this->out_num_; ++n) {
-      for (int c = 0; c < this->out_channels_; ++c) {
-        int bottom_diff_offset = bottom[0]->offset(n, c);
-        int top_diff_offset = top[0]->offset(n, c);
-
-        for (int idx = 0; idx < this->out_height_* this->out_width_; ++idx) {
-          bottom_diff[bottom_diff_offset + static_cast<int>(loc1[idx])] += top_diff[top_diff_offset + idx] * weight1[idx];
-          bottom_diff[bottom_diff_offset + static_cast<int>(loc2[idx])] += top_diff[top_diff_offset + idx] * weight2[idx];
-          bottom_diff[bottom_diff_offset + static_cast<int>(loc3[idx])] += top_diff[top_diff_offset + idx] * weight3[idx];
-          bottom_diff[bottom_diff_offset + static_cast<int>(loc4[idx])] += top_diff[top_diff_offset + idx] * weight4[idx];
-        }
-      }
-    }
-  }
 
 #ifdef CPU_ONLY
   STUB_GPU(ResizeLayer);

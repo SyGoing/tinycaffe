@@ -53,11 +53,6 @@ void MovingNormalizeLayer<Dtype>::Forward_cpu(const vector<Blob<Dtype>*>& bottom
   NOT_IMPLEMENTED;
 }
 
-template <typename Dtype>
-void MovingNormalizeLayer<Dtype>::Backward_cpu(const vector<Blob<Dtype>*>& top,
-    const vector<bool>& propagate_down, const vector<Blob<Dtype>*>& bottom) {
-      NOT_IMPLEMENTED;
-}
 
 
 #ifdef CPU_ONLY

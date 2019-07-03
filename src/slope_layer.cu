@@ -44,26 +44,7 @@ namespace caffe {
     }
   }
 
-  template <typename Dtype>
-  void SlopeLayer<Dtype>::Backward_gpu(const vector<Blob<Dtype>*>& top,
-                                       const vector<bool>& propagate_down, const vector<Blob<Dtype>*>& bottom) {
-    const Dtype* top_diff = top[0]->gpu_diff();
-    Dtype* bottom_diff = bottom[0]->mutable_gpu_diff();
-    int num = bottom[0]->num();
-    int channel = bottom[0]->channels();
-    int height = bottom[0]->height();
-    int width = bottom[0]->width();
-    int spatial_dim = height * width;
 
-    //ConcatSlopeBackward<Dtype>  // NOLINT_NEXT_LINE(whitespace/operators)
-    //  << <CAFFE_GET_BLOCKS(num), CAFFE_CUDA_NUM_THREADS >> >(
-    //    num, channel, spatial_dim,
-    //    top_diff, bottom_diff);
-
-    for (int n = 0; n < num; n++) {
-      caffe_copy(channel * spatial_dim, top_diff + (channel + 2) * spatial_dim * n, bottom_diff + channel * spatial_dim * n);
-    }
-  }
 
   INSTANTIATE_LAYER_GPU_FUNCS(SlopeLayer);
 

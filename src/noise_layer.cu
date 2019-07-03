@@ -27,14 +27,7 @@ void NoiseLayer<Dtype>::Forward_gpu(const vector<Blob<Dtype>*>& bottom,
   }
 }
 
-template <typename Dtype>
-void NoiseLayer<Dtype>::Backward_gpu(const vector<Blob<Dtype>*>& top,
-    const vector<bool>& propagate_down,
-    const vector<Blob<Dtype>*>& bottom) {
-  if (propagate_down[0]) {
-    bottom[0]->ShareDiff(*top[0]);
-  }
-}
+
 
 INSTANTIATE_LAYER_GPU_FUNCS(NoiseLayer);
 

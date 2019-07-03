@@ -494,9 +494,6 @@
     <ClInclude Include="..\..\src\log_layer.hpp">
       <Filter>源文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\loss_layer.hpp">
-      <Filter>源文件</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\lrn_layer.hpp">
       <Filter>源文件</Filter>
     </ClInclude>

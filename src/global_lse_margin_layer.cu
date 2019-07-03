@@ -290,46 +290,6 @@ namespace caffe {
     }
   }
 
-  template <typename Dtype>
-  void GlobalLSEMarginLayer<Dtype>::Backward_gpu(const vector<Blob<Dtype>*>& top,
-                                                 const vector<bool>& propagate_down,
-                                                 const vector<Blob<Dtype>*>& bottom) {
-    const Dtype* top_diff = top[0]->gpu_diff();
-    const Dtype* top_data = top[0]->gpu_data();
-    Dtype* bottom_diff = bottom[0]->mutable_gpu_diff();
-
-    int num = bottom[0]->num();
-    int count = bottom[0]->count();
-    int dim = count / num;
-    Dtype scale = this->blobs_[0]->cpu_data()[0];
-
-    if (original_norm_) {
-      if (propagate_down[2]) {
-        // NOLINT_NEXT_LINE(whitespace/operators)
-        BackwardNorm<Dtype> << <CAFFE_GET_BLOCKS(num), CAFFE_CUDA_NUM_THREADS >> > (
-          num, dim, top_diff, top_data, bottom[2]->gpu_data(), bottom[2]->mutable_gpu_diff());
-      }
-    }
-    else {
-      caffe_gpu_dot(count, top_diff, top_data, this->blobs_[0]->mutable_cpu_diff());
-      this->blobs_[0]->mutable_cpu_diff()[0] /= scale;
-    }
-
-
-    //caffe_set(bottom[2]->count(), Dtype(0), bottom[2]->mutable_gpu_diff());
-    if (propagate_down[0]) {
-      if (original_norm_) {
-        // NOLINT_NEXT_LINE(whitespace/operators)
-        kernel_num_scale<Dtype> << <CAFFE_GET_BLOCKS(count), CAFFE_CUDA_NUM_THREADS >> > (
-          num, dim, top_diff, bottom[2]->gpu_data(), bottom_diff);
-      }
-      else {
-        caffe_gpu_scale(count, scale, top_diff, bottom_diff);
-      }
-    }
-  }
-
-
   INSTANTIATE_LAYER_GPU_FUNCS(GlobalLSEMarginLayer);
 
 

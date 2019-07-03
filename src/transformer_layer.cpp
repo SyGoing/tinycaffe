@@ -89,46 +89,7 @@ namespace caffe {
     }
   }
 
-  template <typename Dtype>
-  void TransformerLayer<Dtype>::Backward_cpu(const vector<Blob<Dtype>*>& top,
-    const vector<bool>& propagate_down,
-    const vector<Blob<Dtype>*>& bottom) {
-    const Dtype* top_diff = top[0]->cpu_diff();
-    const Dtype* top_data = top[0]->cpu_data();
-    Dtype* data_diff = bottom[0]->mutable_cpu_diff();
-    Dtype* theta_diff = bottom[1]->mutable_cpu_diff();
-    int num = bottom[0]->shape(0);
-    int spatial_dim = bottom[0]->shape(2) * bottom[0]->shape(3);
-    const Dtype* CoordinateTarget_data = CoordinateTarget.cpu_data();
-    const Dtype*  CoordinateSource_data = CoordinateSource.cpu_data();
-    Dtype* CoordinateSource_diff = CoordinateSource.mutable_cpu_diff();
 
-    caffe_set<Dtype>(bottom[0]->count(), 0, data_diff);
-    caffe_set<Dtype>(CoordinateSource.count(), 0, CoordinateSource_diff);
-    for (int n = 0; n < num; n++) {
-      for (int i = 0; i < bottom[0]->shape(2); i++) {
-        for (int j = 0; j < bottom[0]->shape(3); j++) {
-          Dtype x = CoordinateSource_data[CoordinateSource.offset(n, 0, i, j)] * bottom[0]->shape(2) / 2 + (Dtype)bottom[0]->shape(2) / 2;
-          Dtype y = CoordinateSource_data[CoordinateSource.offset(n, 1, i, j)] * bottom[0]->shape(3) / 2 + (Dtype)bottom[0]->shape(3) / 2;
-          if (x >= 0 && x <= CoordinateSource.shape(2) - 1 && y >= 0 && y <= CoordinateSource.shape(3) - 1) {
-            for (int c = 0; c < bottom[0]->shape(1); c++) {
-              for (int xx = floor(x); xx <= ceil(x); xx++) {
-                for (int yy = floor(y); yy <= ceil(y); yy++) {
-                  data_diff[bottom[0]->offset(n, c, xx, yy)] += top_diff[top[0]->offset(n, c, i, j)] * (1 - abs(x - xx)) * (1 - abs(y - yy));
-                  //LOG(INFO) << n << " " << c << " " << i << " " << j << " " << data_diff[bottom[0]->offset(n, c, xx, yy)];
-                  CoordinateSource_diff[CoordinateSource.offset(n, 0, i, j)] += top_diff[top[0]->offset(n, c, i, j)] * bottom[0]->data_at(n, c, xx, yy) * caffe_sign<Dtype>(xx - x) * (1 - abs(y - yy)) * (Dtype)bottom[0]->shape(2) / 2;
-                  CoordinateSource_diff[CoordinateSource.offset(n, 1, i, j)] += top_diff[top[0]->offset(n, c, i, j)] * bottom[0]->data_at(n, c, xx, yy) * (1 - abs(x - xx)) * caffe_sign<Dtype>(yy - y) * (Dtype)bottom[0]->shape(3) / 2;
-                }
-              }
-            }
-          }
-        }
-      }
-      caffe_cpu_gemm<Dtype>(CblasNoTrans, CblasTrans, 2, 3, CoordinateTarget.shape(2),
-        Dtype(1), CoordinateSource_diff + n * 2 * spatial_dim, CoordinateTarget_data, Dtype(0), theta_diff + n * 6);
-    }
-
-  }
 
 
 #ifdef CPU_ONLY

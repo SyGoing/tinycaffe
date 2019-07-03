@@ -20,23 +20,6 @@ void CosineLayer<Dtype>::Forward_cpu(const vector<Blob<Dtype>*>& bottom,
   }
 }
 
-template <typename Dtype>
-void CosineLayer<Dtype>::Backward_cpu(const vector<Blob<Dtype>*>& top,
-    const vector<bool>& propagate_down,
-    const vector<Blob<Dtype>*>& bottom) {
-  const Dtype* bottom_data = bottom[0]->cpu_data();
-  const Dtype* top_diff = top[0]->cpu_diff();
-  const int count = bottom[0]->count();
-
-  // Propagate to bottom
-  if (propagate_down[0]) {
-    Dtype* bottom_diff = bottom[0]->mutable_cpu_diff();
-    for (int i = 0; i < count; ++i) {
-      bottom_diff[i] = -sin(bottom_data[i]);
-    }
-  }
-}
-
 
 #ifdef CPU_ONLY
 STUB_GPU(CosineLayer);

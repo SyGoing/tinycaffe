@@ -35,26 +35,6 @@ namespace caffe {
     CUDA_POST_KERNEL_CHECK;
   }
 
-  template <typename Dtype>
-  void CosineLayer<Dtype>::Backward_gpu(const vector<Blob<Dtype>*>& top,
-                                       const vector<bool>& propagate_down,
-                                       const vector<Blob<Dtype>*>& bottom) {
-    const Dtype* bottom_data = bottom[0]->gpu_data();
-    const Dtype* top_diff = top[0]->gpu_diff();
-    const int count = bottom[0]->count();
-
-    // Propagate to bottom
-    if (propagate_down[0]) {
-      Dtype* bottom_diff = bottom[0]->mutable_gpu_diff();
-      // NOLINT_NEXT_LINE(whitespace/operators)
-      CosineBackward<Dtype> << <CAFFE_GET_BLOCKS(count),
-        CAFFE_CUDA_NUM_THREADS >> >(
-          count, top_diff, bottom_data, bottom_diff);
-      CUDA_POST_KERNEL_CHECK;
-    }
-  }
-
-
   INSTANTIATE_LAYER_GPU_FUNCS(CosineLayer);
 
 

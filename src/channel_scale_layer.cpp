@@ -87,50 +87,6 @@ void ChannelScaleLayer<Dtype>::Forward_cpu(const vector<Blob<Dtype>*>& bottom,
   }
 }
 
-template <typename Dtype>
-void ChannelScaleLayer<Dtype>::Backward_cpu(const vector<Blob<Dtype>*>& top,
-    const vector<bool>& propagate_down, const vector<Blob<Dtype>*>& bottom) {
-  const Dtype* top_diff = top[0]->cpu_diff();
-  const Dtype* bottom_data = bottom[0]->cpu_data();
-  const Dtype* scale_data = bottom[1]->cpu_data();
-  Dtype* bottom_diff = bottom[0]->mutable_cpu_diff();
-  Dtype* scale_diff =bottom[1]->mutable_cpu_diff();
-
-  int num = bottom[0]->num();
-  int channels = bottom[0]->channels();
-  int spatial_dim = bottom[0]->height() * bottom[0]->width();
-
-  if (propagate_down[0]) {
-    if (do_backward_feature_) {
-      for (int n = 0; n < num; n++) {
-        for (int s = 0; s < spatial_dim; s++) {
-          for (int c = 0; c < channels; c++) {
-            bottom_diff[(n * channels + c) * spatial_dim + s] = scale_data[n*spatial_dim + s] * top_diff[(n * channels + c) * spatial_dim + s];
-          }
-        }
-      }
-    }
-    else {
-      caffe_copy(bottom[0]->count(), top_diff, bottom_diff);
-    }
-  }
-
-  caffe_set(num*spatial_dim, Dtype(0), scale_diff);
-  if (propagate_down[1] && do_backward_scale_) {
-    for (int n = 0; n < num; n++) {
-      for (int s = 0; s < spatial_dim; s++) {
-        for (int c = 0; c < channels; c++) {
-          scale_diff[n*spatial_dim + s] += bottom_data[(n * channels + c) * spatial_dim + s] * top_diff[(n * channels + c) * spatial_dim + s];
-        }
-      }
-    }
-  }
-
-  //if (global_scale_ && this->param_propagate_down_[0]) {
-  //  this->blobs_[0]->mutable_cpu_diff()[0] = caffe_cpu_dot(bottom[0]->count(), top_diff, bottom_data);
-  //}
-}
-
 
 #ifdef CPU_ONLY
 STUB_GPU(ChannelScaleLayer);

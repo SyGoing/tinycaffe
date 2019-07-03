@@ -118,74 +118,74 @@ void InnerDistanceLayer<Dtype>::Forward_cpu(const vector<Blob<Dtype>*>& bottom,
   }
 }
 
-template <typename Dtype>
-void InnerDistanceLayer<Dtype>::Backward_cpu(const vector<Blob<Dtype>*>& top,
-    const vector<bool>& propagate_down,
-    const vector<Blob<Dtype>*>& bottom) {
-  const Dtype* top_diff = top[0]->cpu_diff();
-  const Dtype* bottom_data = bottom[0]->cpu_data();
-  const Dtype* weight = bottom.size() >= 2 ? bottom[1]->cpu_data() : this->blobs_[0]->cpu_data();
-  if ((bottom.size() == 1 && this->param_propagate_down_[0]) ||
-    (bottom.size() >= 2 && propagate_down[1])) {
-    Dtype* weight_diff = bottom.size() >= 2 ? bottom[1]->mutable_cpu_diff() : this->blobs_[0]->mutable_cpu_diff();
-    if (bottom.size() >= 2) {
-      caffe_set(bottom[1]->count(), Dtype(0), weight_diff);
-    }
-    const Dtype* label_data = NULL;
-    if (update_center_only_) {
-      label_data = bottom[bottom.size() - 1]->cpu_data();
-    }
-    // Gradient with respect to weight
-    if (distance_type_ == "L2") {
-      for (int n = 0; n < N_; n++) {
-        for (int k = 0; k < K_; k++) {
-          for (int m = 0; m < M_; m++) {
-            if (update_center_only_ && n != static_cast<int>(label_data[m])) continue;
-            weight_diff[n * K_ + k] += top_diff[m * N_ + n] * (weight[n * K_ + k] - bottom_data[m * K_ + k]) * Dtype(2);
-          }
-        }
-      }
-    }
-    else if (distance_type_ == "L1") {
-      for (int n = 0; n < N_; n++) {
-        for (int k = 0; k < K_; k++) {
-          for (int m = 0; m < M_; m++) {
-            if (update_center_only_ && n != static_cast<int>(label_data[m])) continue;
-            weight_diff[n * K_ + k] += top_diff[m * N_ + n] * sign(weight[n * K_ + k] - bottom_data[m * K_ + k]);
-          }
-        }
-      }
-    }
-    else {
-      NOT_IMPLEMENTED;
-    }
-  }
-  if (propagate_down[0]) {
-    Dtype* bottom_diff = bottom[0]->mutable_cpu_diff();
-    caffe_set<Dtype>(M_ * K_, 0, bottom_diff);
-    if (distance_type_ == "L2") {
-      for (int m = 0; m < M_; m++) {
-        for (int k = 0; k < K_; k++) {
-          for (int n = 0; n < N_; n++) {
-            bottom_diff[m * K_ + k] += top_diff[m * N_ + n] * (bottom_data[m * K_ + k] - weight[n * K_ + k]) * Dtype(2);
-          }
-        }
-      }
-    }
-    else if (distance_type_ == "L1") {
-      for (int m = 0; m < M_; m++) {
-        for (int k = 0; k < K_; k++) {
-          for (int n = 0; n < N_; n++) {
-            bottom_diff[m * K_ + k] += top_diff[m * N_ + n] * sign(bottom_data[m * K_ + k] - weight[n * K_ + k]);
-          }
-        }
-      }
-    }
-    else {
-      NOT_IMPLEMENTED;
-    }
-  }
-}
+//template <typename Dtype>
+//void InnerDistanceLayer<Dtype>::Backward_cpu(const vector<Blob<Dtype>*>& top,
+//    const vector<bool>& propagate_down,
+//    const vector<Blob<Dtype>*>& bottom) {
+//  const Dtype* top_diff = top[0]->cpu_diff();
+//  const Dtype* bottom_data = bottom[0]->cpu_data();
+//  const Dtype* weight = bottom.size() >= 2 ? bottom[1]->cpu_data() : this->blobs_[0]->cpu_data();
+//  if ((bottom.size() == 1 && this->param_propagate_down_[0]) ||
+//    (bottom.size() >= 2 && propagate_down[1])) {
+//    Dtype* weight_diff = bottom.size() >= 2 ? bottom[1]->mutable_cpu_diff() : this->blobs_[0]->mutable_cpu_diff();
+//    if (bottom.size() >= 2) {
+//      caffe_set(bottom[1]->count(), Dtype(0), weight_diff);
+//    }
+//    const Dtype* label_data = NULL;
+//    if (update_center_only_) {
+//      label_data = bottom[bottom.size() - 1]->cpu_data();
+//    }
+//    // Gradient with respect to weight
+//    if (distance_type_ == "L2") {
+//      for (int n = 0; n < N_; n++) {
+//        for (int k = 0; k < K_; k++) {
+//          for (int m = 0; m < M_; m++) {
+//            if (update_center_only_ && n != static_cast<int>(label_data[m])) continue;
+//            weight_diff[n * K_ + k] += top_diff[m * N_ + n] * (weight[n * K_ + k] - bottom_data[m * K_ + k]) * Dtype(2);
+//          }
+//        }
+//      }
+//    }
+//    else if (distance_type_ == "L1") {
+//      for (int n = 0; n < N_; n++) {
+//        for (int k = 0; k < K_; k++) {
+//          for (int m = 0; m < M_; m++) {
+//            if (update_center_only_ && n != static_cast<int>(label_data[m])) continue;
+//            weight_diff[n * K_ + k] += top_diff[m * N_ + n] * sign(weight[n * K_ + k] - bottom_data[m * K_ + k]);
+//          }
+//        }
+//      }
+//    }
+//    else {
+//      NOT_IMPLEMENTED;
+//    }
+//  }
+//  if (propagate_down[0]) {
+//    Dtype* bottom_diff = bottom[0]->mutable_cpu_diff();
+//    caffe_set<Dtype>(M_ * K_, 0, bottom_diff);
+//    if (distance_type_ == "L2") {
+//      for (int m = 0; m < M_; m++) {
+//        for (int k = 0; k < K_; k++) {
+//          for (int n = 0; n < N_; n++) {
+//            bottom_diff[m * K_ + k] += top_diff[m * N_ + n] * (bottom_data[m * K_ + k] - weight[n * K_ + k]) * Dtype(2);
+//          }
+//        }
+//      }
+//    }
+//    else if (distance_type_ == "L1") {
+//      for (int m = 0; m < M_; m++) {
+//        for (int k = 0; k < K_; k++) {
+//          for (int n = 0; n < N_; n++) {
+//            bottom_diff[m * K_ + k] += top_diff[m * N_ + n] * sign(bottom_data[m * K_ + k] - weight[n * K_ + k]);
+//          }
+//        }
+//      }
+//    }
+//    else {
+//      NOT_IMPLEMENTED;
+//    }
+//  }
+//}
 
 #ifdef CPU_ONLY
 STUB_GPU(InnerDistanceLayer);
