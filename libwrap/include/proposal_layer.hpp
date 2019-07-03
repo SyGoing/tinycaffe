@@ -8,7 +8,7 @@
 #include "layer.hpp"
 #include "caffe.pb.h"
 
-#include "loss_layer.hpp"
+//#include "loss_layer.hpp"
 
 namespace caffe {
   template <typename Dtype>

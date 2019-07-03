@@ -8,7 +8,7 @@
 #include "./blob.hpp"
 #include "./common.hpp"
 #include "./layer.hpp"
-#include "./loss_layer.hpp"
+//#include "./loss_layer.hpp"
 #include "./neuron_layer.hpp"
 #include "./caffe.pb.h"
 
@@ -130,78 +130,78 @@ namespace caffe {
 		Blob<Dtype> col_buffer_;
 	};
 
-	template <typename Dtype>
-	class SmoothL1LossLayer : public LossLayer<Dtype> {
-	public:
-		explicit SmoothL1LossLayer(const LayerParameter& param)
-			: LossLayer<Dtype>(param), diff_() {}
-		virtual void LayerSetUp(const vector<Blob<Dtype>*>& bottom,
-			const vector<Blob<Dtype>*>& top);
-		virtual void Reshape(const vector<Blob<Dtype>*>& bottom,
-			const vector<Blob<Dtype>*>& top);
+	//template <typename Dtype>
+	//class SmoothL1LossLayer : public LossLayer<Dtype> {
+	//public:
+	//	explicit SmoothL1LossLayer(const LayerParameter& param)
+	//		: LossLayer<Dtype>(param), diff_() {}
+	//	virtual void LayerSetUp(const vector<Blob<Dtype>*>& bottom,
+	//		const vector<Blob<Dtype>*>& top);
+	//	virtual void Reshape(const vector<Blob<Dtype>*>& bottom,
+	//		const vector<Blob<Dtype>*>& top);
 
-		virtual inline const char* type() const { return "SmoothL1Loss"; }
+	//	virtual inline const char* type() const { return "SmoothL1Loss"; }
 
-		virtual inline int ExactNumBottomBlobs() const { return -1; }
-		virtual inline int MinBottomBlobs() const { return 2; }
-		virtual inline int MaxBottomBlobs() const { return 3; }
+	//	virtual inline int ExactNumBottomBlobs() const { return -1; }
+	//	virtual inline int MinBottomBlobs() const { return 2; }
+	//	virtual inline int MaxBottomBlobs() const { return 3; }
 
-		/**
-		* Unlike most loss layers, in the SmoothL1LossLayer we can backpropagate
-		* to both inputs -- override to return true and always allow force_backward.
-		*/
-		virtual inline bool AllowForceBackward(const int bottom_index) const {
-			return true;
-		}
+	//	/**
+	//	* Unlike most loss layers, in the SmoothL1LossLayer we can backpropagate
+	//	* to both inputs -- override to return true and always allow force_backward.
+	//	*/
+	//	virtual inline bool AllowForceBackward(const int bottom_index) const {
+	//		return true;
+	//	}
 
-	protected:
-		virtual void Forward_cpu(const vector<Blob<Dtype>*>& bottom,
-			const vector<Blob<Dtype>*>& top);
-		virtual void Forward_gpu(const vector<Blob<Dtype>*>& bottom,
-			const vector<Blob<Dtype>*>& top);
+	//protected:
+	//	virtual void Forward_cpu(const vector<Blob<Dtype>*>& bottom,
+	//		const vector<Blob<Dtype>*>& top);
+	//	virtual void Forward_gpu(const vector<Blob<Dtype>*>& bottom,
+	//		const vector<Blob<Dtype>*>& top);
 
-		Blob<Dtype> diff_;
-		Blob<Dtype> errors_;
-		bool has_weights_;
-    Dtype turn_point_;
-	};
+	//	Blob<Dtype> diff_;
+	//	Blob<Dtype> errors_;
+	//	bool has_weights_;
+ //   Dtype turn_point_;
+	//};
 
-  /* Yuanyang adding triplet loss layer */
-  /* *
-  * * @brief Computes the triplet loss
-  * */
-  template <typename Dtype>
-  class TripletLossLayer : public LossLayer<Dtype> {
-  public:
-    explicit TripletLossLayer(const LayerParameter& param) : LossLayer<Dtype>(param) {}
-    virtual void LayerSetUp(const vector<Blob<Dtype>*>& bottom, const vector<Blob<Dtype>*>&top);
-    virtual inline int ExactNumBottomBlobs() const { return 3; }
-    virtual inline const char* type() const { return "TripletLoss"; }
-    /* *
-    * * Unlike most loss layers, in the TripletLossLayer we can backpropagate
-    * * to the first three inputs.
-    * */
-    virtual inline bool AllowForceBackward(const int bottom_index) const {
-      return bottom_index != 3;
-    }
-  protected:
-    virtual void Forward_cpu(const vector<Blob<Dtype>*>& bottom, const vector<Blob<Dtype>*>& top);
-    virtual void Forward_gpu(const vector<Blob<Dtype>*>& bottom, const vector<Blob<Dtype>*>& top);
+ // /* Yuanyang adding triplet loss layer */
+ // /* *
+ // * * @brief Computes the triplet loss
+ // * */
+ // template <typename Dtype>
+ // class TripletLossLayer : public LossLayer<Dtype> {
+ // public:
+ //   explicit TripletLossLayer(const LayerParameter& param) : LossLayer<Dtype>(param) {}
+ //   virtual void LayerSetUp(const vector<Blob<Dtype>*>& bottom, const vector<Blob<Dtype>*>&top);
+ //   virtual inline int ExactNumBottomBlobs() const { return 3; }
+ //   virtual inline const char* type() const { return "TripletLoss"; }
+ //   /* *
+ //   * * Unlike most loss layers, in the TripletLossLayer we can backpropagate
+ //   * * to the first three inputs.
+ //   * */
+ //   virtual inline bool AllowForceBackward(const int bottom_index) const {
+ //     return bottom_index != 3;
+ //   }
+ // protected:
+ //   virtual void Forward_cpu(const vector<Blob<Dtype>*>& bottom, const vector<Blob<Dtype>*>& top);
+ //   virtual void Forward_gpu(const vector<Blob<Dtype>*>& bottom, const vector<Blob<Dtype>*>& top);
 
-    Blob<Dtype> diff_ap_;  // cached for backward pass
-    Blob<Dtype> diff_an_;  // cached for backward pass
-    Blob<Dtype> diff_pn_;  // cached for backward pass
+ //   Blob<Dtype> diff_ap_;  // cached for backward pass
+ //   Blob<Dtype> diff_an_;  // cached for backward pass
+ //   Blob<Dtype> diff_pn_;  // cached for backward pass
 
-    Blob<Dtype> diff_sq_ap_;  // cached for backward pass
-    Blob<Dtype> diff_sq_an_;  // tmp storage for gpu forward pass
+ //   Blob<Dtype> diff_sq_ap_;  // cached for backward pass
+ //   Blob<Dtype> diff_sq_an_;  // tmp storage for gpu forward pass
 
-    Blob<Dtype> dist_sq_ap_;  // cached for backward pass
-    Blob<Dtype> dist_sq_an_;  // cached for backward pass
+ //   Blob<Dtype> dist_sq_ap_;  // cached for backward pass
+ //   Blob<Dtype> dist_sq_an_;  // cached for backward pass
 
-    Blob<Dtype> summer_vec_;  // tmp storage for gpu forward pass
-    Blob<Dtype> dist_binary_;  // tmp storage for gpu forward pass
+ //   Blob<Dtype> summer_vec_;  // tmp storage for gpu forward pass
+ //   Blob<Dtype> dist_binary_;  // tmp storage for gpu forward pass
 
-  };
+ // };
 
 	/**
 	* @brief Apply an affine transform on the input layer, where the affine parameters

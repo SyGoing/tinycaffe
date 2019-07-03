@@ -20,7 +20,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\absval_layer.cpp" />
-    <ClCompile Include="..\..\src\accuracy_layer.cpp" />
     <ClCompile Include="..\..\src\arccos_layer.cpp" />
     <ClCompile Include="..\..\src\argmax_layer.cpp" />
     <ClCompile Include="..\..\src\axpy_layer.cpp" />
@@ -57,7 +56,6 @@
     <ClCompile Include="..\..\src\elu_layer.cpp" />
     <ClCompile Include="..\..\src\embed_layer.cpp" />
     <ClCompile Include="..\..\src\exp_layer.cpp" />
-    <ClCompile Include="..\..\src\fcn_accuracy_layer.cpp" />
     <ClCompile Include="..\..\src\filter_layer.cpp" />
     <ClCompile Include="..\..\src\flatten_layer.cpp" />
     <ClCompile Include="..\..\src\flip_layer.cpp" />
@@ -376,7 +374,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\absval_layer.hpp" />
-    <ClInclude Include="..\..\src\accuracy_layer.hpp" />
     <ClInclude Include="..\..\src\arccos_layer.hpp" />
     <ClInclude Include="..\..\src\argmax_layer.hpp" />
     <ClInclude Include="..\..\src\axpy_layer.hpp" />
@@ -417,7 +414,6 @@
     <ClInclude Include="..\..\src\elu_layer.hpp" />
     <ClInclude Include="..\..\src\embed_layer.hpp" />
     <ClInclude Include="..\..\src\exp_layer.hpp" />
-    <ClInclude Include="..\..\src\fcn_accuracy_layer.hpp" />
     <ClInclude Include="..\..\src\filler.hpp" />
     <ClInclude Include="..\..\src\filter_layer.hpp" />
     <ClInclude Include="..\..\src\flatten_layer.hpp" />
@@ -619,7 +615,7 @@
       <AdditionalDependencies>opencv_world310.lib;libopenblas.lib;libprotobuf.lib;gflags.lib;glog.lib;cublas.lib;cudart.lib;cudadevrt.lib;cudnn.lib;curand.lib;cudart_static.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <CudaCompile>
-      <CodeGeneration>compute_50,sm_50;compute_52,sm_52;compute_60,sm_60;compute_61,sm_61</CodeGeneration>
+      <CodeGeneration>compute_61,sm_61</CodeGeneration>
     </CudaCompile>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
