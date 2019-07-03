@@ -16,7 +16,7 @@ endmacro()
 
 # Known NVIDIA GPU achitectures Caffe can be compiled for.
 # This list will be used for CUDA_ARCH_NAME = All option
-set(Caffe_known_gpu_archs "20 21(20) 30 35 50 60 61")
+set(Caffe_known_gpu_archs "50 60 61 70 75")
 
 ################################################################################################
 # A function for automatic detection of GPUs installed  (if autodetection is enabled)
@@ -89,12 +89,9 @@ endfunction()
 #   caffe_select_nvcc_arch_flags(out_variable)
 function(caffe_select_nvcc_arch_flags out_variable)
   # List of arch names
-  set(__archs_names "Fermi" "Kepler" "Maxwell" "Pascal" "All" "Manual")
-<<<<<<< HEAD
+  set(__archs_names "Fermi" "Kepler" "Maxwell" "Pascal" "All" "Manual" "Turning")
   set(__archs_name_default "Pascal")
-=======
   set(__archs_name_default "All")
->>>>>>> first
   if(NOT CMAKE_CROSSCOMPILING)
     list(APPEND __archs_names "Auto")
     set(__archs_name_default "Auto")
@@ -128,6 +125,8 @@ function(caffe_select_nvcc_arch_flags out_variable)
     set(__cuda_arch_bin "50")
   elseif(${CUDA_ARCH_NAME} STREQUAL "Pascal")
     set(__cuda_arch_bin "60 61")
+  elseif(${CUDA_ARCH_NAME} STREQUAL "Turning")
+    set(__cuda_arch_bin "70 75")
   elseif(${CUDA_ARCH_NAME} STREQUAL "All")
     set(__cuda_arch_bin ${Caffe_known_gpu_archs})
   elseif(${CUDA_ARCH_NAME} STREQUAL "Auto")
