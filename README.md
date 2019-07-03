@@ -61,7 +61,7 @@
 	  注意：需要将cublas64_10.dll cudart64_101.dll cudnn64_7.dll cufft64_10.dll curand64_10.dll和3rdparty/bins中的dll文件复制到windows/x64/release下面
 	  
 	  cmake 编译,可以修改cmake/Cuda.cmake第67行的计算能力值与你的显卡相匹配，这里我设置的6.1， 查看显卡计算能力链接：https://developer.nvidia.com/cuda-gpus
-	  cmake 编译步骤，cmd(或git bash) cd到该路径：
+	  cmake 编译步骤，cmd(或git bash) cd到本项目路径：
       mkdir build 
 	  cd build 
 	  cmake .. -G "Visual Studio 14 2015 Win64"
