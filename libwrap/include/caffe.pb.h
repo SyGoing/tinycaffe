@@ -4,12 +4,12 @@
 #ifndef PROTOBUF_caffe_2eproto__INCLUDED
 #define PROTOBUF_caffe_2eproto__INCLUDED
 
-#ifdef CAFFE_EXPORTS
-#define LIBCAFFE __declspec(dllexport)
-#else
-#define LIBCAFFE __declspec(dllimport)
-#endif
+//#ifdef CAFFE_EXPORTS
 //#define LIBCAFFE __declspec(dllexport)
+//#else
+//#define LIBCAFFE __declspec(dllimport)
+//#endif
+#define LIBCAFFE __declspec(dllexport)
 
 #include <string>
 

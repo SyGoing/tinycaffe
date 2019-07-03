@@ -139,10 +139,7 @@ class LSTMUnitLayer : public Layer<Dtype> {
    *      the gradient w.r.t. the sequence continuation indicators
    *      @f$ \delta_t @f$ is currently not computed.
    */
-  virtual void Backward_cpu(const vector<Blob<Dtype>*>& top,
-      const vector<bool>& propagate_down, const vector<Blob<Dtype>*>& bottom);
-  virtual void Backward_gpu(const vector<Blob<Dtype>*>& top,
-      const vector<bool>& propagate_down, const vector<Blob<Dtype>*>& bottom);
+
 
   /// @brief The hidden and output dimension.
   int hidden_dim_;

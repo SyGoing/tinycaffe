@@ -1,13 +1,13 @@
 #ifndef CAFFE_LAYER_H_
 #define CAFFE_LAYER_H_
 
-//#define LIBCAFFE __declspec(dllexport)
-
-#ifdef CAFFE_EXPORTS
 #define LIBCAFFE __declspec(dllexport)
-#else
-#define LIBCAFFE __declspec(dllimport)
-#endif
+
+//#ifdef CAFFE_EXPORTS
+//#define LIBCAFFE __declspec(dllexport)
+//#else
+//#define LIBCAFFE __declspec(dllimport)
+//#endif
 
 #include <algorithm>
 #include <string>
@@ -157,9 +157,7 @@ class LIBCAFFE Layer {
    *
    * Your layer should implement Backward_cpu and (optionally) Backward_gpu.
    */
-  inline void Backward(const vector<Blob<Dtype>*>& top,
-      const vector<bool>& propagate_down,
-      const vector<Blob<Dtype>*>& bottom);
+
 
   /**
    * @brief Set phase: TRAIN or TEST
@@ -359,20 +357,13 @@ class LIBCAFFE Layer {
    * @brief Using the CPU device, compute the gradients for any parameters and
    *        for the bottom blobs if propagate_down is true.
    */
-  virtual void Backward_cpu(const vector<Blob<Dtype>*>& top,
-      const vector<bool>& propagate_down,
-      const vector<Blob<Dtype>*>& bottom) = 0;
+
   /**
    * @brief Using the GPU device, compute the gradients for any parameters and
    *        for the bottom blobs if propagate_down is true.
    *        Fall back to Backward_cpu() if unavailable.
    */
-  virtual void Backward_gpu(const vector<Blob<Dtype>*>& top,
-      const vector<bool>& propagate_down,
-      const vector<Blob<Dtype>*>& bottom) {
-    // LOG(WARNING) << "Using CPU code as backup.";
-    Backward_cpu(top, propagate_down, bottom);
-  }
+
 
   /**
    * Called by the parent Layer's SetUp to check that the number of bottom
@@ -481,21 +472,7 @@ inline Dtype Layer<Dtype>::Forward(const vector<Blob<Dtype>*>& bottom,
   return loss;
 }
 
-template <typename Dtype>
-inline void Layer<Dtype>::Backward(const vector<Blob<Dtype>*>& top,
-    const vector<bool>& propagate_down,
-    const vector<Blob<Dtype>*>& bottom) {
-  switch (Caffe::mode()) {
-  case Caffe::CPU:
-    Backward_cpu(top, propagate_down, bottom);
-    break;
-  case Caffe::GPU:
-    Backward_gpu(top, propagate_down, bottom);
-    break;
-  default:
-    LOG(FATAL) << "Unknown caffe mode.";
-  }
-}
+
 
 // Serialize LayerParameter to protocol buffer
 template <typename Dtype>

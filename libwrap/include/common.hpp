@@ -2,13 +2,13 @@
 #define CAFFE_COMMON_HPP_
 
 //定义动态库导出
-//#define LIBCAFFE __declspec(dllexport)
-
-#ifdef CAFFE_EXPORTS
 #define LIBCAFFE __declspec(dllexport)
-#else
-#define LIBCAFFE __declspec(dllimport)
-#endif
+
+//#ifdef CAFFE_EXPORTS
+//#define LIBCAFFE __declspec(dllexport)
+//#else
+//#define LIBCAFFE __declspec(dllimport)
+//#endif
 
 //#include <boost/shared_ptr.hpp>
 #include<memory>
@@ -17,7 +17,9 @@
 
 #include <climits>
 #include <cmath>
+
 #include<algorithm>
+
 #include <fstream>  // NOLINT(readability/streams)
 #include <iostream>  // NOLINT(readability/streams)
 #include <map>
@@ -63,19 +65,19 @@ private:\
       const std::vector<Blob<double>*>& bottom, \
       const std::vector<Blob<double>*>& top);
 
-#define INSTANTIATE_LAYER_GPU_BACKWARD(classname) \
-  template void classname<float>::Backward_gpu( \
-      const std::vector<Blob<float>*>& top, \
-      const std::vector<bool>& propagate_down, \
-      const std::vector<Blob<float>*>& bottom); \
-  template void classname<double>::Backward_gpu( \
-      const std::vector<Blob<double>*>& top, \
-      const std::vector<bool>& propagate_down, \
-      const std::vector<Blob<double>*>& bottom)
+//#define INSTANTIATE_LAYER_GPU_BACKWARD(classname) \
+//  template void classname<float>::Backward_gpu( \
+//      const std::vector<Blob<float>*>& top, \
+//      const std::vector<bool>& propagate_down, \
+//      const std::vector<Blob<float>*>& bottom); \
+//  template void classname<double>::Backward_gpu( \
+//      const std::vector<Blob<double>*>& top, \
+//      const std::vector<bool>& propagate_down, \
+//      const std::vector<Blob<double>*>& bottom)
 
 #define INSTANTIATE_LAYER_GPU_FUNCS(classname) \
   INSTANTIATE_LAYER_GPU_FORWARD(classname); \
-  INSTANTIATE_LAYER_GPU_BACKWARD(classname)
+  //INSTANTIATE_LAYER_GPU_BACKWARD(classname)
 
 // A simple macro to mark codes that are not implemented, so that when the code
 // is executed we will see a fatal log.

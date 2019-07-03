@@ -1,13 +1,13 @@
 #ifndef CAFFE_NET_HPP_
 #define CAFFE_NET_HPP_
 
-#ifdef CAFFE_EXPORTS
-#define LIBCAFFE __declspec(dllexport)
-#else
-#define LIBCAFFE __declspec(dllimport)
-#endif
-
+//#ifdef CAFFE_EXPORTS
 //#define LIBCAFFE __declspec(dllexport)
+//#else
+//#define LIBCAFFE __declspec(dllimport)
+//#endif
+
+#define LIBCAFFE __declspec(dllexport)
 
 #include <map>
 #include <set>
@@ -77,10 +77,10 @@ class LIBCAFFE Net {
    * computes the gradient w.r.t the parameters, and the data has already been
    * provided during the forward pass.
    */
-  void Backward();
+/*  void Backward();
   void BackwardFromTo(int start, int end);
   void BackwardFrom(int start);
-  void BackwardTo(int end);
+  void BackwardTo(int end)*/;
 
   /**
    * @brief Reshape all layers from bottom to top.
@@ -90,12 +90,12 @@ class LIBCAFFE Net {
    */
   void Reshape();
 
-  Dtype ForwardBackward() {
-    Dtype loss;
-    Forward(&loss);
-    Backward();
-    return loss;
-  }
+  //Dtype ForwardBackward() {
+  //  Dtype loss;
+  //  Forward(&loss);
+  //  Backward();
+  //  return loss;
+  //}
 
   /// @brief Updates the network weights based on the diff values computed.
   void Update();
@@ -170,7 +170,7 @@ class LIBCAFFE Net {
     return bottom_id_vecs_[i];
   }
   inline const vector<vector<bool> >& bottom_need_backward() const {
-    return bottom_need_backward_;
+	  return bottom_need_backward_;
   }
   inline const vector<Dtype>& blob_loss_weights() const {
     return blob_loss_weights_;
@@ -277,7 +277,7 @@ class LIBCAFFE Net {
   /// @brief Helper for displaying debug info in Forward.
   void ForwardDebugInfo(const int layer_id);
   /// @brief Helper for displaying debug info in Backward.
-  void BackwardDebugInfo(const int layer_id);
+//  void BackwardDebugInfo(const int layer_id);
   /// @brief Helper for displaying debug info in Update.
   void UpdateDebugInfo(const int param_id);
 

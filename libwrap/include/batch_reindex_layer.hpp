@@ -62,11 +62,6 @@ class BatchReindexLayer : public Layer<Dtype> {
    *   - This layer cannot backprop to x_2, i.e. propagate_down[1] must be
    *     false.
    */
-  virtual void Backward_cpu(const vector<Blob<Dtype>*>& top,
-      const vector<bool>& propagate_down, const vector<Blob<Dtype>*>& bottom);
-  virtual void Backward_gpu(const vector<Blob<Dtype>*>& top,
-      const vector<bool>& propagate_down, const vector<Blob<Dtype>*>& bottom);
-
  private:
   struct pair_sort_first {
     bool operator()(const std::pair<int, int> &left,

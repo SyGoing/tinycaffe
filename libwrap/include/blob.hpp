@@ -1,13 +1,13 @@
 #ifndef CAFFE_BLOB_HPP_
 #define CAFFE_BLOB_HPP_
 
-//#define LIBCAFFE __declspec(dllexport)
-
-#ifdef CAFFE_EXPORTS
 #define LIBCAFFE __declspec(dllexport)
-#else
-#define LIBCAFFE __declspec(dllimport)
-#endif
+
+//#ifdef CAFFE_EXPORTS
+//#define LIBCAFFE __declspec(dllexport)
+//#else
+//#define LIBCAFFE __declspec(dllimport)
+//#endif
 
 #include <algorithm>
 #include <string>

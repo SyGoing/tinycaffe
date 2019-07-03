@@ -2,17 +2,17 @@
 #define CAFFE_UTIL_IO_H_
 
 //#include <boost/filesystem.hpp>
-//#define LIBCAFFE __declspec(dllexport)
+#define LIBCAFFE __declspec(dllexport)
 
 //编译的时候只保留： #define LIBCAFFE __declspec(dllexport)
 //在使用时需要使用如下定义
 //这个是什么原因？
 
-#ifdef CAFFE_EXPORTS
-#define LIBCAFFE __declspec(dllexport)
-#else
-#define LIBCAFFE __declspec(dllimport)
-#endif
+//#ifdef CAFFE_EXPORTS
+//#define LIBCAFFE __declspec(dllexport)
+//#else
+//#define LIBCAFFE __declspec(dllimport)
+//#endif
 
 #include <iomanip>
 #include <iostream>  // NOLINT(readability/streams)
