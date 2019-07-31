@@ -1,6 +1,7 @@
-轻量级caffe前向推理框架
+# 轻量级caffe前向推理框架
+[![LICENSE](https://img.shields.io/badge/license-NPL%20(The%20996%20Prohibited%20License)-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)
 
-一、简单介绍
+# 一、简单介绍
 本项目为对happynear版本的caffe进行精简化:
 1、去除冗余依赖boost、hdf5、lmdb、levedb等，简化以后caffe前向框架更加小型化，并且保持了原生caffe调用习惯（相比于mini-caffe）
 2、去除训练用到的loss计算以及solver源码
@@ -11,7 +12,7 @@
 	提供的cmake可以在ubuntu下编译，同时也可以在windows下编译使用。
 
 
-二、编译
+# 二、编译
     目前仅仅只是在windows下呢，我提交了编译的sln工程和编译好的库（libwrap文件）,这个版本的caffe支持cuda10.1和cudnn7.5.1。
 	1、windows下编译，blob.hpp、io.hpp、net.hpp、common.hpp、layer.hpp、caffe.pb.h的文件开始加入：
 	
@@ -67,6 +68,6 @@
 	  cmake .. -G "Visual Studio 14 2015 Win64"
 	  
 	  finally, open the caffe.sln compile it(Release x64)
-三、使用
+# 三、使用
 .....
 
