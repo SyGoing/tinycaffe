@@ -53,7 +53,7 @@
         cmake .. -Dprotobuf_BUILD_TESTS=OFF -Dprotobuf_MSVC_STATIC_RUNTIME=OFF -G "Visual Studio 12 2013 Win64"
 		
 	   Use protobuf.sln to compile Debug and Release version.
-	   With these two libraries, we can compile Mini-Caffe now. Copy protobuf's include headers and libraries. Generate caffe.pb.h and caffe.pb.cc.
+	   With these two libraries, we can compile tinycaffe now. Copy protobuf's include headers and libraries. Generate caffe.pb.h and caffe.pb.cc.
 		
 	    copydeps.bat
         generatepb.bat
